@@ -1,0 +1,16 @@
+//
+//  Project.pch
+//  ChildStoriesVoice
+//
+//  Created by jackyshan on 12/17/15.
+//  Copyright © 2015 jackyshan. All rights reserved.
+//
+
+#ifndef Project_pch
+#define Project_pch
+
+#import "ProjectMacro.h"
+#import "NotificationMacro.h"
+#import "ProjectColor.h"
+
+#endif /* Project_pch */
