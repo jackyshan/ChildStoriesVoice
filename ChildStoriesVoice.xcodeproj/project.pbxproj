@@ -29,6 +29,13 @@
 		6D3AD23E1C22C17F0036EFD9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D3AD23D1C22C17F0036EFD9 /* ImageIO.framework */; };
 		6D3AD2411C22C19B0036EFD9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D3AD22E1C22BD0E0036EFD9 /* libz.tbd */; };
 		6D3AD2421C22C1A90036EFD9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D3AD2321C22BD230036EFD9 /* libsqlite3.tbd */; };
+		6D3AD2461C23B9150036EFD9 /* HomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD2451C23B9150036EFD9 /* HomeCollectionCell.m */; };
+		6D3AD2491C23F2A20036EFD9 /* AlbumVoiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD2481C23F2A20036EFD9 /* AlbumVoiceModel.m */; };
+		6D3AD24C1C23F3FE0036EFD9 /* NWHomeAlbums.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD24B1C23F3FE0036EFD9 /* NWHomeAlbums.m */; };
+		6D3AD24F1C24006E0036EFD9 /* NWAlbumDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD24E1C24006E0036EFD9 /* NWAlbumDetails.m */; };
+		6D3AD2531C24024A0036EFD9 /* AlbumDetailListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD2521C24024A0036EFD9 /* AlbumDetailListVC.m */; };
+		6D3AD2561C2406D60036EFD9 /* VoiceDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD2551C2406D60036EFD9 /* VoiceDetailModel.m */; };
+		6D3AD2591C240F9E0036EFD9 /* VoiceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD2581C240F9E0036EFD9 /* VoiceDetailCell.m */; };
 		6DCA22971C22A764001F62A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA22961C22A764001F62A9 /* AppDelegate.m */; };
 		6DCA229F1C22A764001F62A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DCA229E1C22A764001F62A9 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -94,6 +101,20 @@
 		6D3AD22E1C22BD0E0036EFD9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6D3AD2321C22BD230036EFD9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		6D3AD23D1C22C17F0036EFD9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		6D3AD2441C23B9150036EFD9 /* HomeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCollectionCell.h; sourceTree = "<group>"; };
+		6D3AD2451C23B9150036EFD9 /* HomeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionCell.m; sourceTree = "<group>"; };
+		6D3AD2471C23F2A20036EFD9 /* AlbumVoiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumVoiceModel.h; sourceTree = "<group>"; };
+		6D3AD2481C23F2A20036EFD9 /* AlbumVoiceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumVoiceModel.m; sourceTree = "<group>"; };
+		6D3AD24A1C23F3FE0036EFD9 /* NWHomeAlbums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWHomeAlbums.h; sourceTree = "<group>"; };
+		6D3AD24B1C23F3FE0036EFD9 /* NWHomeAlbums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWHomeAlbums.m; sourceTree = "<group>"; };
+		6D3AD24D1C24006E0036EFD9 /* NWAlbumDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWAlbumDetails.h; sourceTree = "<group>"; };
+		6D3AD24E1C24006E0036EFD9 /* NWAlbumDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWAlbumDetails.m; sourceTree = "<group>"; };
+		6D3AD2511C24024A0036EFD9 /* AlbumDetailListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumDetailListVC.h; sourceTree = "<group>"; };
+		6D3AD2521C24024A0036EFD9 /* AlbumDetailListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumDetailListVC.m; sourceTree = "<group>"; };
+		6D3AD2541C2406D60036EFD9 /* VoiceDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceDetailModel.h; sourceTree = "<group>"; };
+		6D3AD2551C2406D60036EFD9 /* VoiceDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceDetailModel.m; sourceTree = "<group>"; };
+		6D3AD2571C240F9E0036EFD9 /* VoiceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceDetailCell.h; sourceTree = "<group>"; };
+		6D3AD2581C240F9E0036EFD9 /* VoiceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceDetailCell.m; sourceTree = "<group>"; };
 		6DCA228F1C22A764001F62A9 /* ChildStoriesVoice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChildStoriesVoice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DCA22931C22A764001F62A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6DCA22951C22A764001F62A9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -241,6 +262,10 @@
 				6D3AD2271C22BB8F0036EFD9 /* VersionAdsModel.m */,
 				6D3AD2231C22BB760036EFD9 /* VersionUpdateModel.h */,
 				6D3AD2241C22BB760036EFD9 /* VersionUpdateModel.m */,
+				6D3AD2471C23F2A20036EFD9 /* AlbumVoiceModel.h */,
+				6D3AD2481C23F2A20036EFD9 /* AlbumVoiceModel.m */,
+				6D3AD2541C2406D60036EFD9 /* VoiceDetailModel.h */,
+				6D3AD2551C2406D60036EFD9 /* VoiceDetailModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -248,6 +273,10 @@
 		6D3AD2141C22B6380036EFD9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				6D3AD24A1C23F3FE0036EFD9 /* NWHomeAlbums.h */,
+				6D3AD24B1C23F3FE0036EFD9 /* NWHomeAlbums.m */,
+				6D3AD24D1C24006E0036EFD9 /* NWAlbumDetails.h */,
+				6D3AD24E1C24006E0036EFD9 /* NWAlbumDetails.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -256,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				6D3AD21F1C22B8610036EFD9 /* Home */,
+				6D3AD2501C24021E0036EFD9 /* AlbumDetailList */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -292,6 +322,8 @@
 			children = (
 				6D3AD2201C22B8700036EFD9 /* HomeViewController.h */,
 				6D3AD2211C22B8700036EFD9 /* HomeViewController.m */,
+				6D3AD2441C23B9150036EFD9 /* HomeCollectionCell.h */,
+				6D3AD2451C23B9150036EFD9 /* HomeCollectionCell.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -306,6 +338,17 @@
 				6D3AD22A1C22BC6F0036EFD9 /* GoogleMobileAds.framework */,
 			);
 			path = Framework;
+			sourceTree = "<group>";
+		};
+		6D3AD2501C24021E0036EFD9 /* AlbumDetailList */ = {
+			isa = PBXGroup;
+			children = (
+				6D3AD2511C24024A0036EFD9 /* AlbumDetailListVC.h */,
+				6D3AD2521C24024A0036EFD9 /* AlbumDetailListVC.m */,
+				6D3AD2571C240F9E0036EFD9 /* VoiceDetailCell.h */,
+				6D3AD2581C240F9E0036EFD9 /* VoiceDetailCell.m */,
+			);
+			path = AlbumDetailList;
 			sourceTree = "<group>";
 		};
 		6DCA22861C22A764001F62A9 = {
@@ -446,17 +489,24 @@
 				6D3AD2121C22B5DD0036EFD9 /* ShareServer.m in Sources */,
 				6D3AD2081C22B5DD0036EFD9 /* BaseModel.m in Sources */,
 				6D3AD20B1C22B5DD0036EFD9 /* BaseViewController.m in Sources */,
+				6D3AD24F1C24006E0036EFD9 /* NWAlbumDetails.m in Sources */,
+				6D3AD2491C23F2A20036EFD9 /* AlbumVoiceModel.m in Sources */,
 				6D3AD21E1C22B7D60036EFD9 /* CreateTableWorker.m in Sources */,
 				6DCA22971C22A764001F62A9 /* AppDelegate.m in Sources */,
+				6D3AD2561C2406D60036EFD9 /* VoiceDetailModel.m in Sources */,
 				6D3AD20A1C22B5DD0036EFD9 /* BaseTableViewCell.m in Sources */,
 				6D3AD21D1C22B7D60036EFD9 /* DataBaseServer.m in Sources */,
 				6D3AD2221C22B8700036EFD9 /* HomeViewController.m in Sources */,
 				6D3AD2251C22BB760036EFD9 /* VersionUpdateModel.m in Sources */,
+				6D3AD2461C23B9150036EFD9 /* HomeCollectionCell.m in Sources */,
 				6D3AD2091C22B5DD0036EFD9 /* BaseNetwork.m in Sources */,
 				6D3AD2101C22B5DD0036EFD9 /* ProjectHelper.m in Sources */,
+				6D3AD2531C24024A0036EFD9 /* AlbumDetailListVC.m in Sources */,
 				6D3AD2071C22B5DD0036EFD9 /* BaseCollectionViewCell.m in Sources */,
+				6D3AD24C1C23F3FE0036EFD9 /* NWHomeAlbums.m in Sources */,
 				6D3AD2061C22B5DD0036EFD9 /* AnalyticsServer.m in Sources */,
 				6D3AD2111C22B5DD0036EFD9 /* IAPHelper.m in Sources */,
+				6D3AD2591C240F9E0036EFD9 /* VoiceDetailCell.m in Sources */,
 				6D3AD20C1C22B5DD0036EFD9 /* GADView.m in Sources */,
 				6D3AD2281C22BB8F0036EFD9 /* VersionAdsModel.m in Sources */,
 			);
@@ -561,6 +611,10 @@
 				INFOPLIST_FILE = ChildStoriesVoice/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Objc",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jackyshan.ChildStoriesVoice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -580,6 +634,10 @@
 				INFOPLIST_FILE = ChildStoriesVoice/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Objc",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jackyshan.ChildStoriesVoice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

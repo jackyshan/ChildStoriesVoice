@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9E586135F70899A7487C6DB9CC96C24745F29992",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9E586135F70899A7487C6DB9CC96C24745F29992" : 0,
+    "F071BB1FD8BC81673EB46E7B8D394F51B5929C8F" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "24E7C77E-F4A6-4A0F-9501-7FE53FAD1C2B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9E586135F70899A7487C6DB9CC96C24745F29992" : "ChildStoriesVoice_iOS\/",
+    "F071BB1FD8BC81673EB46E7B8D394F51B5929C8F" : "..\/JackyBusiness"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ChildStoriesVoice",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ChildStoriesVoice.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/jackyshan\/%E7%99%BE%E5%BA%A6%E4%BA%91%E5%90%8C%E6%AD%A5%E7%9B%98\/Git\/Project\/myapp\/ChildStoriesVoice\/ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9E586135F70899A7487C6DB9CC96C24745F29992"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/jackyshan\/%E7%99%BE%E5%BA%A6%E4%BA%91%E5%90%8C%E6%AD%A5%E7%9B%98\/Git\/Project\/myapp\/JackyBusiness\/ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F071BB1FD8BC81673EB46E7B8D394F51B5929C8F"
+    }
+  ]
+}

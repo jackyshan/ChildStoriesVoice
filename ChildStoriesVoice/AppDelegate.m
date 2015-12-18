@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "JackyBusiness.pch"
+#import "ProjectColor.h"
 
 @interface AppDelegate ()
 
@@ -18,15 +20,29 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //window init
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = COLOR_FFFFFF;
     
+    //home vc
     HomeViewController *vc= [[HomeViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     
+    //init bottomBar
+    [self.window addSubview:self.playBottomBar];
+    
     return YES;
+}
+
+- (UIView *)playBottomBar {
+    if (!_playBottomBar) {
+        _playBottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kPlayBottomBarHeight, kScreenWidth, kPlayBottomBarHeight)];
+        _playBottomBar.backgroundColor = COLOR_211A15;
+    }
+    
+    return _playBottomBar;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

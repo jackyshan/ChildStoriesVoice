@@ -26,10 +26,7 @@ typedef enum {
     ServerTypeTest
 } ServerType;
 
-@interface BaseNetwork : NSObject
-
-                             {
-  NSString *_path;
+@interface BaseNetwork : NSObject {
   NSDictionary *_params;
   NWFlag _flag;
   CacheType _cacheType;
@@ -42,6 +39,8 @@ typedef enum {
 
   ServerType _serverType;
 }
+
+@property (nonatomic, strong)  NSString *path;
 
 /**
  *  请求完成的回调

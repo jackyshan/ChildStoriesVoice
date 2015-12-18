@@ -20,8 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBarHidden = YES;
-    
     [self addSubviews];
     [self defineLayout];
 }
@@ -60,7 +58,7 @@
     [_failView addSubview:imageView];
     
     UILabel *failLabel = [[UILabel alloc] init];
-    failLabel.font = [UIFont fontWithName:ZT_DFSHAONV size:16.f];
+    failLabel.font = [UIFont systemFontOfSize:16.f];
     failLabel.textColor = COLOR_FFFFFF;
     failLabel.text = @"网络加载失败，点击重试";
     failLabel.textAlignment = NSTextAlignmentCenter;
@@ -98,7 +96,7 @@
     [emptyView addSubview:imageView];
     
     UILabel *emptyLabel = [[UILabel alloc] init];
-    emptyLabel.font = [UIFont fontWithName:ZT_DFSHAONV size:16.f];
+    emptyLabel.font = [UIFont systemFontOfSize:16.f];
     emptyLabel.textColor = COLOR_FFFFFF;
     emptyLabel.text = @"没有数据，点击重试";
     emptyLabel.textAlignment = NSTextAlignmentCenter;

@@ -32,7 +32,8 @@ static MKNetworkEngine *_testEngine = nil;
 /**
  *  请求路径
  */
-@property (nonatomic, strong) NSString *path;
+//@property (nonatomic, strong) NSString *path;
+
 /**
  *  请求的参数
  */
@@ -124,6 +125,11 @@ static MKNetworkEngine *_testEngine = nil;
 //		}
 //	}
 
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_params];
+    [dic setObject:@"1.1.2" forKey:@"version"];
+    [dic setObject:@"iPhone" forKey:@"device"];
+    _params = dic;
+    
 	[self sendRequest:HttpMethodGet];
 }
 
