@@ -17,6 +17,14 @@
 
 @implementation BaseViewController
 
+- (AppDelegate *)delegate {
+    if (!_delegate) {
+        _delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    }
+    
+    return _delegate;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

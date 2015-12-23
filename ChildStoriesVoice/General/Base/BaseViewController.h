@@ -10,8 +10,11 @@
 #import <Foundation/Foundation.h>
 #import "JackyBusiness.pch"
 #import "Project.pch"
+#import "AppDelegate.h"
 
 @interface BaseViewController : UIViewController
+
+@property (nonatomic, weak) AppDelegate *delegate;
 
 - (void)addSubviews;
 - (void)defineLayout;

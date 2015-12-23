@@ -97,8 +97,8 @@
     [_imageView sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
     
     _titleLb.text = model.title;
-    _detailLb.text = [NSString stringWithFormat:@"%d plays", model.plays_counts];
-    _songsNumLb.text = [NSString stringWithFormat:@"%d voices", model.tracks_counts];
+    _detailLb.text = [NSString stringWithFormat:@"%@ plays", model.plays_counts];
+    _songsNumLb.text = [NSString stringWithFormat:@"%@ voices", model.tracks_counts];
 }
 
 @end

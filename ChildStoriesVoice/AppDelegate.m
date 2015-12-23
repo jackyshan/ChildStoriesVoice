@@ -38,8 +38,7 @@
 
 - (UIView *)playBottomBar {
     if (!_playBottomBar) {
-        _playBottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kPlayBottomBarHeight, kScreenWidth, kPlayBottomBarHeight)];
-        _playBottomBar.backgroundColor = COLOR_211A15;
+        _playBottomBar = [[PlayBottomBarView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kPlayBottomBarHeight, kScreenWidth, kPlayBottomBarHeight)];
     }
     
     return _playBottomBar;
