@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = COLOR_FFFFFF;
     
     [self addSubviews];
     [self defineLayout];

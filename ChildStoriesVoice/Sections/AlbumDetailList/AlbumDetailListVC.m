@@ -19,6 +19,7 @@
 }
 
 @property (nonatomic, strong) UIImageView *albumImageView;
+@property (nonatomic, strong) UIButton *naviLeftArrow;
 @property (nonatomic, strong) UILabel *albumInfo;
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -51,6 +52,23 @@
     [self.albumImageView addSubview:self.albumInfo];
     
     [self.view addSubview:self.tableView];
+    
+    [self.view addSubview:self.naviLeftArrow];
+}
+
+- (UIButton *)naviLeftArrow {
+    if (!_naviLeftArrow) {
+        _naviLeftArrow = [[UIButton alloc] init];
+        [_naviLeftArrow setImage:[UIImage imageNamed:@"ArrowLeft"]];
+        @weakify(self)
+        [[_naviLeftArrow rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton *x) {
+            @strongify(self)
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }
+    
+    return _naviLeftArrow;
 }
 
 - (UIImageView *)albumImageView {
@@ -113,6 +131,12 @@
         make.left.width.equalTo(self.view);
         make.top.mas_equalTo(_albumImageView.mas_bottom);
         make.bottom.mas_equalTo(-kPlayBottomBarHeight);
+    }];
+    
+    [_naviLeftArrow mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(26);
+        make.top.mas_equalTo(35);
+        make.size.mas_equalTo(CGSizeMake(24, 24));
     }];
 }
 
