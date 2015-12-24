@@ -11,6 +11,6 @@
 
 @interface PlayBottomBarView : UIView
 
-- (void)playWithModel:(VoiceDetailModel *)model;
+- (void)playWithModel:(VoiceDetailModel *)model andModels:(NSArray *)models;
 
 @end

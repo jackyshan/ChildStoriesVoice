@@ -15,8 +15,8 @@
 @property (nonatomic, strong) NSString *coverSmall;
 @property (nonatomic, strong) NSString *coverLarge;
 @property (nonatomic, strong) NSString *playtimes;
-@property (nonatomic, strong) NSString *playUrl32;
-@property (nonatomic, strong) NSString *playUrl64;
+@property (nonatomic, strong) NSURL *playUrl32;
+@property (nonatomic, strong) NSURL *playUrl64;
 @property (nonatomic, strong) NSString *mp3size_32;
 @property (nonatomic, strong) NSString *mp3size_64;
 @property (nonatomic, strong) NSString *albumId;
@@ -24,5 +24,7 @@
 @property (nonatomic, strong) NSString *duration;
 @property (nonatomic, strong) NSString *createdAt;
 @property (nonatomic, strong) NSString *updatedAt;
+
+@property (nonatomic, assign) BOOL playing;
 
 @end

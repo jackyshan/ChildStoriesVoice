@@ -19,10 +19,12 @@
 }
 
 @property (nonatomic, strong) UIImageView *albumImageView;
-@property (nonatomic, strong) UIButton *naviLeftArrow;
 @property (nonatomic, strong) UILabel *albumInfo;
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIButton *naviLeftArrow;
+@property (nonatomic, strong) UIView *statusBarView;
 
 @property (nonatomic, strong) NSMutableArray *mArr;
 
@@ -54,6 +56,7 @@
     [self.view addSubview:self.tableView];
     
     [self.view addSubview:self.naviLeftArrow];
+    [self.view addSubview:self.statusBarView];
 }
 
 - (UIButton *)naviLeftArrow {
@@ -71,10 +74,27 @@
     return _naviLeftArrow;
 }
 
+- (UIView *)statusBarView {
+    if (!_statusBarView) {
+        _statusBarView = [[UIView alloc] init];
+        _statusBarView.backgroundColor = COLOR_CLEAR;
+    }
+    
+    return _statusBarView;
+}
+
 - (UIImageView *)albumImageView {
     if (!_albumImageView) {
         _albumImageView = [[UIImageView alloc] init];
-        [_albumImageView sd_setImageWithURL:[NSURL URLWithString:_model.coverLarge]];
+        @weakify(self)
+        [_albumImageView sd_setImageWithURL:[NSURL URLWithString:_model.coverLarge] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            @strongify(self)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.statusBarView.backgroundColor = [ColorHelper mostColor:image];
+                }];
+            });
+        }];
     }
     
     return _albumImageView;
@@ -138,6 +158,11 @@
         make.top.mas_equalTo(35);
         make.size.mas_equalTo(CGSizeMake(24, 24));
     }];
+    
+    [_statusBarView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.height.mas_equalTo(20);
+    }];
 }
 
 - (void)loadingData {
@@ -184,8 +209,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     VoiceDetailModel *model = _mArr[indexPath.row];
-    
-    [self.delegate.playBottomBar playWithModel:model];
+    [self.delegate.playBottomBar playWithModel:model andModels:_mArr];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

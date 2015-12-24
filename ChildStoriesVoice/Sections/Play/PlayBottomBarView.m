@@ -12,6 +12,7 @@
 
 @interface PlayBottomBarView()<STKAudioPlayerDelegate> {
     VoiceDetailModel *_model;
+    NSArray *_models;
 }
 
 @property (nonatomic, strong) UIButton *playBtn;
@@ -51,21 +52,25 @@
             @strongify(self)
             if (x.selected) {
                 [self.audioPlayer resume];
+                
+                if (self.audioPlayer.state == STKAudioPlayerStateStopped) {
+                    [self playWithModel:self->_model andModels:_models];
+                }
             }
             else {
                 [self.audioPlayer pause];
             }
         }];
         
-        [RACObserve(self.audioPlayer, state) subscribeNext:^(NSNumber *state) {
-            @strongify(self)
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.playBtn.selected = state.integerValue == 3?YES:NO;
-            });
-            
-            self.titleLb.text = self->_model.title;
-        }];
+//        [RACObserve(self.audioPlayer, state) subscribeNext:^(NSNumber *state) {
+//            @strongify(self)
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.playBtn.selected = state.integerValue == 3?YES:NO;
+//            });
+//            
+//            self.titleLb.text = self->_model.title;
+//        }];
     }
     
     return _playBtn;
@@ -110,23 +115,56 @@
     return _audioPlayer;
 }
 
-- (void)playWithModel:(VoiceDetailModel *)model {
+- (void)playWithModel:(VoiceDetailModel *)model andModels:(NSArray *)models {
     _model = model;
     
-    [self.audioPlayer play:model.playUrl64];
+    //播放
+    [self.audioPlayer playURL:model.playUrl64 withQueueItemID:model];
+    
+    //队列
+    _models = models;
+    [self.audioPlayer clearQueue];
+    NSUInteger endIndex = models.count;
+    NSUInteger startIndex = [models indexOfObject:model];
+    NSIndexSet *indexSet =  [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, endIndex - startIndex)];
+    [models enumerateObjectsAtIndexes:indexSet options:NSEnumerationConcurrent usingBlock:^(VoiceDetailModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.audioPlayer queueURL:obj.playUrl64 withQueueItemId:obj];
+    }];
 }
 
 #pragma mark - STKAudioPlayerDelegate
 /// Raised when an item has started playing
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer didStartPlayingQueueItemId:(NSObject*)queueItemId {}
+-(void) audioPlayer:(STKAudioPlayer*)audioPlayer didStartPlayingQueueItemId:(VoiceDetailModel *)queueItemId {
+    NSLog(@"didStartPlayingQueueItemId");
+    
+    self.titleLb.text = queueItemId.title;
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.audioPlayer seekToTime:self.audioPlayer.duration];
+//    });
+    
+    queueItemId.playing = YES;
+}
 /// Raised when an item has finished buffering (may or may not be the currently playing item)
 /// This event may be raised multiple times for the same item if seek is invoked on the player
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishBufferingSourceWithQueueItemId:(NSObject*)queueItemId {}
+-(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishBufferingSourceWithQueueItemId:(NSObject*)queueItemId {
+    NSLog(@"didFinishBufferingSourceWithQueueItemId");
+}
 /// Raised when the state of the player has changed
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState {}
+-(void) audioPlayer:(STKAudioPlayer*)audioPlayer stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState {
+    NSLog(@"stateChanged");
+    
+    self.playBtn.selected = state == STKAudioPlayerStatePlaying ? YES : NO;
+}
 /// Raised when an item has finished playing
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishPlayingQueueItemId:(NSObject*)queueItemId withReason:(STKAudioPlayerStopReason)stopReason andProgress:(double)progress andDuration:(double)duration {}
+-(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishPlayingQueueItemId:(VoiceDetailModel *)queueItemId withReason:(STKAudioPlayerStopReason)stopReason andProgress:(double)progress andDuration:(double)duration {
+    NSLog(@"didFinishPlayingQueueItemId");
+    
+    queueItemId.playing = NO;
+}
 /// Raised when an unexpected and possibly unrecoverable error has occured (usually best to recreate the STKAudioPlauyer)
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer unexpectedError:(STKAudioPlayerErrorCode)errorCode {}
+-(void) audioPlayer:(STKAudioPlayer*)audioPlayer unexpectedError:(STKAudioPlayerErrorCode)errorCode {
+    NSLog(@"unexpectedError");
+}
 
 @end
