@@ -10,7 +10,7 @@
 #import "ProjectHelper.h"
 #import "SettingModel.h"
 
-@interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate> {
+@interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate> {
     NSArray *_dataArr;
 }
 
@@ -31,6 +31,7 @@
 
 - (void)addSubviews {
     [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"ArrowLeft"]];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     [self.view addSubview:self.tableView];
 }

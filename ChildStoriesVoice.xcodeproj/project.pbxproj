@@ -497,6 +497,7 @@
 			buildPhases = (
 				6DCA228B1C22A764001F62A9 /* Sources */,
 				6DCA228C1C22A764001F62A9 /* Frameworks */,
+				185CAA2F1C2DA24D0047AF39 /* Run Script */,
 				6DCA228D1C22A764001F62A9 /* Resources */,
 			);
 			buildRules = (
@@ -573,6 +574,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		185CAA2F1C2DA24D0047AF39 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION == Release ]; then\n\necho \"Bumping build number...\"\nplist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\nif [ $CONFIGURATION == Release ]; then\ntype=1\nelse\ntype=0\nfi\n\ndate=$(date +%y%m%d%H%M)\ncatpion=${type}${date}\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${catpion}\" \"${plist}\"\necho \"Bumped build number to $buildnum\"\n\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6DCA228B1C22A764001F62A9 /* Sources */ = {
