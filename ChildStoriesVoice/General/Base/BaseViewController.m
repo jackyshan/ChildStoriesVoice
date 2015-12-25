@@ -67,7 +67,7 @@
     [_failView addSubview:imageView];
     
     UILabel *failLabel = [[UILabel alloc] init];
-    failLabel.font = [UIFont systemFontOfSize:16.f];
+    failLabel.font = [UIFont boldSystemFontOfSize:16.f];
     failLabel.textColor = COLOR_FFFFFF;
     failLabel.text = @"网络加载失败，点击重试";
     failLabel.textAlignment = NSTextAlignmentCenter;
@@ -105,9 +105,9 @@
     [emptyView addSubview:imageView];
     
     UILabel *emptyLabel = [[UILabel alloc] init];
-    emptyLabel.font = [UIFont systemFontOfSize:16.f];
+    emptyLabel.font = [UIFont boldSystemFontOfSize:16.f];
     emptyLabel.textColor = COLOR_FFFFFF;
-    emptyLabel.text = @"没有数据，点击重试";
+    emptyLabel.text = @"没有数据";
     emptyLabel.textAlignment = NSTextAlignmentCenter;
     [emptyView addSubview:emptyLabel];
     
@@ -150,6 +150,66 @@
 
 - (void)dealloc {
     NSLog(@"页面销毁%@", [self class]);
+}
+
+#pragma mark - navigationBar
+- (void)createLeftButtonWithTitle:(NSString *)title withLeftImage:(UIImage *)leftImage
+{
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0f, 40.0f, 44.0)];
+    [leftButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [leftButton setBackgroundColor:[UIColor clearColor]];
+    
+    if (title && [title length] > 0) {
+        leftButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        leftButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+        [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [leftButton setTitle:title forState:UIControlStateNormal];
+    }
+    
+    if (leftImage) {
+        [leftButton setImage:leftImage forState:UIControlStateNormal];
+    }
+    
+    [leftButton addTarget:self action:@selector(leftBarbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = barItem;
+}
+
+- (void)createRightButtonWithTitle:(NSString *)title withRightImage:(UIImage *)rightImage
+{
+    UIButton *rightButton =[[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0f, 60.0f, 44.0)];
+    [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [rightButton setBackgroundColor:[UIColor clearColor]];
+    if (title && [title length] > 0) {
+        rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        rightButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [rightButton setTitle:title forState:UIControlStateNormal];
+        [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+    
+    if (rightImage) {
+        [rightButton setImage:rightImage forState:UIControlStateNormal];
+    }
+    
+    [rightButton addTarget:self action:@selector(rightBarbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+//    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//    spacer.width = -6.0f; // for example shift right bar button to the right
+    
+//    self.navigationItem.rightBarButtonItems = @[spacer, barItem];
+    self.navigationItem.rightBarButtonItem = barItem;
+}
+
+- (void)leftBarbuttonClick:(UIBarButtonItem *)item
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)rightBarbuttonClick:(UIBarButtonItem *)item
+{
+    [self doesNotRecognizeSelector:_cmd];
 }
 
 @end

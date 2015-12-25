@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D0700FE1C2D3C0F00D34E95 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0700FD1C2D3C0F00D34E95 /* SettingsViewController.m */; };
+		6D0701021C2D456E00D34E95 /* SettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0701011C2D456E00D34E95 /* SettingModel.m */; };
 		6D3AD2061C22B5DD0036EFD9 /* AnalyticsServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD1E01C22B5DD0036EFD9 /* AnalyticsServer.m */; };
 		6D3AD2071C22B5DD0036EFD9 /* BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD1E31C22B5DD0036EFD9 /* BaseCollectionViewCell.m */; };
 		6D3AD2081C22B5DD0036EFD9 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD1E51C22B5DD0036EFD9 /* BaseModel.m */; };
@@ -68,6 +70,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D0700FC1C2D3C0F00D34E95 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		6D0700FD1C2D3C0F00D34E95 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		6D0701001C2D456E00D34E95 /* SettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingModel.h; sourceTree = "<group>"; };
+		6D0701011C2D456E00D34E95 /* SettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingModel.m; sourceTree = "<group>"; };
 		6D3AD1CF1C22B1670036EFD9 /* JackyBusiness.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JackyBusiness.xcodeproj; path = ../../JackyBusiness/JackyBusiness.xcodeproj; sourceTree = "<group>"; };
 		6D3AD1DA1C22B1E30036EFD9 /* NotificationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
 		6D3AD1DB1C22B1E30036EFD9 /* ProjectMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectMacro.h; sourceTree = "<group>"; };
@@ -171,6 +177,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D0700F91C2D3BFD00D34E95 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6D0700FC1C2D3C0F00D34E95 /* SettingsViewController.h */,
+				6D0700FD1C2D3C0F00D34E95 /* SettingsViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		6D3AD1CA1C22B1540036EFD9 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +313,8 @@
 				6D3AD2481C23F2A20036EFD9 /* AlbumVoiceModel.m */,
 				6D3AD2541C2406D60036EFD9 /* VoiceDetailModel.h */,
 				6D3AD2551C2406D60036EFD9 /* VoiceDetailModel.m */,
+				6D0701001C2D456E00D34E95 /* SettingModel.h */,
+				6D0701011C2D456E00D34E95 /* SettingModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -316,6 +333,7 @@
 		6D3AD2151C22B6380036EFD9 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				6D0700F91C2D3BFD00D34E95 /* Settings */,
 				6D3AD2691C2A8FAB0036EFD9 /* Play */,
 				6D3AD21F1C22B8610036EFD9 /* Home */,
 				6D3AD2501C24021E0036EFD9 /* AlbumDetailList */,
@@ -577,6 +595,7 @@
 				6D3AD21D1C22B7D60036EFD9 /* DataBaseServer.m in Sources */,
 				6D3AD2221C22B8700036EFD9 /* HomeViewController.m in Sources */,
 				6D3AD28E1C2AA6850036EFD9 /* STKQueueEntry.m in Sources */,
+				6D0701021C2D456E00D34E95 /* SettingModel.m in Sources */,
 				6D3AD28A1C2AA6850036EFD9 /* STKDataSource.m in Sources */,
 				6D3AD2251C22BB760036EFD9 /* VersionUpdateModel.m in Sources */,
 				6D3AD2461C23B9150036EFD9 /* HomeCollectionCell.m in Sources */,
@@ -588,6 +607,7 @@
 				6D3AD2061C22B5DD0036EFD9 /* AnalyticsServer.m in Sources */,
 				6D3AD2111C22B5DD0036EFD9 /* IAPHelper.m in Sources */,
 				6D3AD2861C2AA6850036EFD9 /* NSMutableArray+STKAudioPlayer.m in Sources */,
+				6D0700FE1C2D3C0F00D34E95 /* SettingsViewController.m in Sources */,
 				6D3AD2591C240F9E0036EFD9 /* VoiceDetailCell.m in Sources */,
 				6D3AD20C1C22B5DD0036EFD9 /* GADView.m in Sources */,
 				6D3AD2871C2AA6850036EFD9 /* STKAudioPlayer.m in Sources */,

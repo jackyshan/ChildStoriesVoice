@@ -11,6 +11,7 @@
 #import "NWHomeAlbums.h"
 #import "AlbumVoiceModel.h"
 #import "AlbumDetailListVC.h"
+#import "SettingsViewController.h"
 
 #define HOME_COLLECTION_CELL @"homeCollectionCell"
 
@@ -45,6 +46,17 @@
 
 - (void)addSubviews {
     [self.view addSubview:self.collectionView];
+    
+    [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"search"]];
+    [self createRightButtonWithTitle:nil withRightImage:[UIImage imageNamed:@"settings"]];
+}
+
+
+- (void)leftBarbuttonClick:(UIBarButtonItem *)item {}
+
+- (void)rightBarbuttonClick:(UIBarButtonItem *)item {
+    SettingsViewController *vc = [[SettingsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (UICollectionView *)collectionView {

@@ -20,4 +20,7 @@
 + (void)updateVersion:(VersionUpdateModel *)model;
 + (void)adsVersion:(VersionAdsModel *)model;
 
+//设置列表
++ (NSArray *)getSettingMenuModels;
+
 @end
