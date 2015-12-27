@@ -10,4 +10,8 @@
 
 @implementation AlbumVoiceModel
 
++ (JSONKeyMapper*)keyMapper {
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"albumId"}];
+}
+
 @end

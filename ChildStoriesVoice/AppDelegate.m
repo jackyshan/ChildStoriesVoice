@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "JackyBusiness.pch"
 #import "ProjectColor.h"
+#import "DataBaseServer.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSLog(@"%@", NSHomeDirectory());
+    
     //window init
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = COLOR_FFFFFF;
@@ -30,8 +33,12 @@
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     
+    //init database
+    [DataBaseServer createTable];
+    
     //init bottomBar
     [self.window addSubview:self.playBottomBar];
+    [self.playBottomBar appStartPlayModel];//开机播放
     
     return YES;
 }

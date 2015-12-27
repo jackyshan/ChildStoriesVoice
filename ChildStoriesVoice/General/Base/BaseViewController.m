@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface BaseViewController() {
+@interface BaseViewController()<UIGestureRecognizerDelegate> {
     UIView *_failView;
     UIView *_emptyView;
 }
@@ -28,6 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COLOR_FFFFFF;
+    
+    [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"ArrowLeft"]];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     [self addSubviews];
     [self defineLayout];

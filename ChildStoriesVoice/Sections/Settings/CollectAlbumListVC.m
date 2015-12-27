@@ -1,17 +1,18 @@
 //
-//  HomeViewController.m
+//  CollectAlbumListVC.m
 //  ChildStoriesVoice
 //
-//  Created by jackyshan on 12/17/15.
+//  Created by apple on 12/27/15.
 //  Copyright © 2015 jackyshan. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "CollectAlbumListVC.h"
 #import "HomeCollectionCell.h"
 #import "NWHomeAlbums.h"
 #import "AlbumVoiceModel.h"
 #import "AlbumDetailListVC.h"
 #import "SettingsViewController.h"
+#import "DataBaseServer.h"
 
 #define HOME_COLLECTION_CELL @"homeCollectionCell"
 
@@ -19,15 +20,15 @@
 #define ITEM_HEIGH 180
 #define kHeaderHeight 20
 
-@interface HomeViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface CollectAlbumListVC ()<UICollectionViewDataSource, UICollectionViewDelegate> {
+    NSArray *_mArr;
+}
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
-@property (nonatomic, strong) NSMutableArray *mArr;
-
 @end
 
-@implementation HomeViewController
+@implementation CollectAlbumListVC
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -38,21 +39,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"儿童故事音汇";
+    self.title = @"专辑";
     
-    self.mArr = [NSMutableArray array];
     [self loadingData];
 }
 
 - (void)addSubviews {
     [self.view addSubview:self.collectionView];
-    
-    [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"search"]];
-    [self createRightButtonWithTitle:nil withRightImage:[UIImage imageNamed:@"settings"]];
 }
-
-
-- (void)leftBarbuttonClick:(UIBarButtonItem *)item {}
 
 - (void)rightBarbuttonClick:(UIBarButtonItem *)item {
     SettingsViewController *vc = [[SettingsViewController alloc] init];
@@ -82,28 +76,8 @@
 }
 
 - (void)loadingData {
-    [super loadingData];
-    
-    MBProgressHUD *hub = [[MBProgressHUD alloc] init];
-    hub.labelText = @"请求中...";
-    [hub show:YES];
-    NWHomeAlbums *homeAlbums = [[NWHomeAlbums alloc] init];
-    [homeAlbums setCompletion:^(NSArray *arr, BOOL succ) {
-        if (succ) {
-            if (arr.count == 0) {
-                [CommonHelper showMessage:@"没有更多了"];return;
-            }
-            
-            [self.mArr addObjectsFromArray:arr];
-            [_collectionView reloadData];
-        }
-        else {
-            [self loadingFial];
-        }
-    }];
-    
-    homeAlbums.path = @"948/common_tag/6/童话故事";
-    [homeAlbums startRequestWithParams:@{@"page_id":@(1)}];
+    _mArr = [DataBaseServer selectCollectAlbumList];
+    [_collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource

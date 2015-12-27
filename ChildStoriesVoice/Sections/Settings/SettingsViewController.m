@@ -9,8 +9,13 @@
 #import "SettingsViewController.h"
 #import "ProjectHelper.h"
 #import "SettingModel.h"
+#import "PlayVoiceListVC.h"
+#import "PlayVoiceLastedListVC.h"
+#import "DownloadVoiceListVC.h"
+#import "LovedVoiceListVC.h"
+#import "CollectAlbumListVC.h"
 
-@interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate> {
+@interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate> {
     NSArray *_dataArr;
 }
 
@@ -30,9 +35,6 @@
 }
 
 - (void)addSubviews {
-    [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"ArrowLeft"]];
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    
     [self.view addSubview:self.tableView];
 }
 
@@ -97,6 +99,28 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SettingListModel *model = ((SettingModel*)_dataArr[indexPath.section]).list[indexPath.row];
+    if (model.type == 0) {
+        PlayVoiceListVC *vc = [[PlayVoiceListVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (model.type == 1) {
+        PlayVoiceLastedListVC *vc = [[PlayVoiceLastedListVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (model.type == 2) {
+        DownloadVoiceListVC *vc = [[DownloadVoiceListVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (model.type == 3) {
+        LovedVoiceListVC *vc = [[LovedVoiceListVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (model.type == 4) {
+        CollectAlbumListVC *vc = [[CollectAlbumListVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -11,6 +11,8 @@
 #import "VoiceDetailCell.h"
 #import "VoiceDetailModel.h"
 #import "STKAudioPlayer.h"
+#import "DataBaseServer.h"
+#import "BlockAlertView.h"
 
 #define VOICE_DETAIL_CELL @"voiceDetailCell"
 
@@ -25,8 +27,12 @@
 
 @property (nonatomic, strong) UIButton *naviLeftArrow;
 @property (nonatomic, strong) UIView *statusBarView;
+@property (nonatomic, strong) UIButton *collectBtn;
+@property (nonatomic, strong) UIButton *orderBtn;
 
 @property (nonatomic, strong) NSMutableArray *mArr;
+
+@property (nonatomic, strong) BlockAlertView *alertView;
 
 @end
 
@@ -52,6 +58,8 @@
 - (void)addSubviews {
     [self.view addSubview:self.albumImageView];
     [self.albumImageView addSubview:self.albumInfo];
+    [self.albumImageView addSubview:self.collectBtn];
+    [self.albumImageView addSubview:self.orderBtn];
     
     [self.view addSubview:self.tableView];
     
@@ -86,6 +94,7 @@
 - (UIImageView *)albumImageView {
     if (!_albumImageView) {
         _albumImageView = [[UIImageView alloc] init];
+        _albumImageView.userInteractionEnabled = YES;
         @weakify(self)
         [_albumImageView sd_setImageWithURL:[NSURL URLWithString:_model.coverLarge] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             @strongify(self)
@@ -120,6 +129,58 @@
     return _albumInfo;
 }
 
+- (UIButton *)collectBtn {
+    if (!_collectBtn) {
+        _collectBtn = [[UIButton alloc] init];
+        _collectBtn.backgroundColor = COLOR_CLEAR;
+        [_collectBtn setImage:[UIImage imageNamed:@"star"]];
+        [_collectBtn setImage:[UIImage imageNamed:@"star_select"] forState:UIControlStateSelected];
+        _collectBtn.selected = [DataBaseServer checkCollectAlbum:_model];
+        @weakify(self)
+        [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton *x) {
+            @strongify(self)
+            x.selected = !x.selected;
+            
+            if (x.selected) {
+                [DataBaseServer insertCollectAlbum:self->_model];
+            }
+            else {
+                [DataBaseServer deleteCollectAlbum:self->_model];
+            }
+        }];
+    }
+    
+    return _collectBtn;
+}
+
+- (UIButton *)orderBtn {
+    if (!_orderBtn) {
+        _orderBtn = [[UIButton alloc] init];
+        _orderBtn.backgroundColor = COLOR_CLEAR;
+        [_orderBtn setImage:[UIImage imageNamed:@"order"]];
+        [_orderBtn addTarget:self action:@selector(alertView)];
+    }
+    
+    return _orderBtn;
+}
+
+- (BlockAlertView *)alertView {
+    _alertView = [[BlockAlertView alloc] initWithTitle:@"排序"];
+    _alertView.alertMessage = @"当前顺序有误？确定更改排序！";
+    [_alertView addTitle:@"取消" block:nil];
+    
+    @weakify(self)
+    [_alertView addTitle:@"确定" block:^(id result) {
+        @strongify(self)
+        self.mArr = [NSMutableArray arrayWithArray:[[self.mArr reverseObjectEnumerator] allObjects]];
+        [self.tableView reloadData];
+    }];
+    
+    [_alertView show];
+    
+    return _alertView;
+}
+
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -145,6 +206,19 @@
         make.width.mas_equalTo(210);
         make.height.mas_equalTo(55);
         make.bottom.mas_equalTo(-20);
+    }];
+    
+    [_collectBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-20);
+        make.right.mas_equalTo(-10);
+        make.width.height.mas_equalTo(22);
+    }];
+    
+    [_orderBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-84);
+        make.right.mas_equalTo(-10);
+        make.width.mas_equalTo(26);
+        make.height.mas_equalTo(40);
     }];
     
     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -183,7 +257,7 @@
         }
     }];
     
-    albumDetails.path = [NSString stringWithFormat:@"948/albums/%@", _model.id];
+    albumDetails.path = [NSString stringWithFormat:@"948/albums/%@", _model.albumId];
     [albumDetails startRequestWithParams:@{@"page_id":@(1),
                                            @"isAsc":@(YES)}];
 }

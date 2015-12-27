@@ -10,14 +10,14 @@
 
 @interface AlbumVoiceModel : BaseModel
 
-@property (nonatomic, strong) NSString *id;
+@property (nonatomic, strong) NSString *albumId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *coverSmall;
 @property (nonatomic, strong) NSString *coverLarge;
-@property (nonatomic, assign) NSTimeInterval updatedAt;
-@property (nonatomic, assign) NSInteger finished;
+@property (nonatomic, strong) NSString *updatedAt;
+@property (nonatomic, strong) NSString *finished;
 @property (nonatomic, strong) NSString *plays_counts;
 @property (nonatomic, strong) NSString *tracks_counts;
-@property (nonatomic, assign) BOOL selected;
+@property (nonatomic, strong) NSString *selected;
 
 @end

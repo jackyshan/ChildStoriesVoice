@@ -67,14 +67,14 @@ static BlockAlertView *ads = nil;
     NSArray *music = @[@{@"img":@"", @"title":@"播放列表", @"detailTitle":@"", @"type":@"0"},
                        @{@"img":@"", @"title":@"最近播放", @"detailTitle":@"", @"type":@"1"},
                        @{@"img":@"", @"title":@"下载音乐", @"detailTitle":@"", @"type":@"2"},
-                       @{@"img":@"", @"title":@"收藏专辑", @"detailTitle":@"", @"type":@"3"},
-                       @{@"img":@"", @"title":@"喜欢的音乐", @"detailTitle":@"", @"type":@"4"}];
-    NSArray *vip = @[@{@"img":@"", @"title":@"升级VIP", @"detailTitle":@"", @"type":@"0"},
-                     @{@"img":@"", @"title":@"恢复VIP", @"detailTitle":@"", @"type":@"1"}];
-    NSArray *setting = @[@{@"img":@"", @"title":@"评价", @"detailTitle":@"", @"type":@"0"},
-                         @{@"img":@"", @"title":@"清除缓存", @"detailTitle":@"", @"type":@"1"},
-                         @{@"img":@"", @"title":@"反馈", @"detailTitle":@"邮件", @"type":@"2"},
-                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"3"}];
+                       @{@"img":@"", @"title":@"喜欢的音乐", @"detailTitle":@"", @"type":@"3"},
+                       @{@"img":@"", @"title":@"收藏专辑", @"detailTitle":@"", @"type":@"4"}];
+    NSArray *vip = @[@{@"img":@"", @"title":@"升级VIP", @"detailTitle":@"", @"type":@"5"},
+                     @{@"img":@"", @"title":@"恢复VIP", @"detailTitle":@"", @"type":@"6"}];
+    NSArray *setting = @[@{@"img":@"", @"title":@"评价", @"detailTitle":@"", @"type":@"7"},
+                         @{@"img":@"", @"title":@"清除缓存", @"detailTitle":@"", @"type":@"8"},
+                         @{@"img":@"", @"title":@"反馈", @"detailTitle":@"邮件", @"type":@"9"},
+                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"10"}];
     
     NSArray *arr = @[@{@"name":@"音乐", @"list":music},
                      @{@"name":@"vip", @"list":vip},

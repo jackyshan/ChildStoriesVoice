@@ -25,6 +25,13 @@
 @property (nonatomic, strong) NSString *createdAt;
 @property (nonatomic, strong) NSString *updatedAt;
 
+//system
 @property (nonatomic, assign) BOOL playing;
+
+//database
+@property (nonatomic, strong) NSString *progress;
+@property (nonatomic, strong) NSString *playtime;
+@property (nonatomic, assign) CGFloat downloadProgress;
+@property (nonatomic, assign) BOOL finished;
 
 @end

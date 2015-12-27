@@ -26,6 +26,6 @@
 @property (nonatomic, strong) NSString *img;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *detailTitle;
-@property (nonatomic, strong) NSString *type;
+@property (nonatomic, assign) NSInteger type;
 
 @end
