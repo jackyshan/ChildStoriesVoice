@@ -56,7 +56,15 @@ static NSString *databaseName = @"db.sqlite3";
     [self _addToEngine:worker];
     
     return [worker onResult][@"result"];
-};
+}
++ (void)deletePlayVoiceLastedList {
+    UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initDeletePlayVoiceLastedList];
+    [self _addToEngine:worker];
+}
++ (void)deletePlayVoiceLasted:(VoiceDetailModel *)model {
+    UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initDeletePlayVoiceLasted:model];
+    [self _addToEngine:worker];
+}
 
 //下载音乐
 + (BOOL)insertDownload:(VoiceDetailModel *)model {
@@ -70,8 +78,8 @@ static NSString *databaseName = @"db.sqlite3";
     UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initUpdateDownload:model];
     [self _addToEngine:worker];
 }
-+ (NSArray *)selectDownloadList {
-    UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initSelectDownloadList];
++ (NSArray *)selectDownloadList:(BOOL)finished; {
+    UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initSelectDownloadList:finished];
     [self _addToEngine:worker];
     
     return [worker onResult][@"result"];
@@ -97,6 +105,10 @@ static NSString *databaseName = @"db.sqlite3";
 }
 + (void)deleteLovedVoice:(VoiceDetailModel *)model {
     UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initDeleteLovedVoice:model];
+    [self _addToEngine:worker];
+}
++ (void)deleteLovedVoiceList {
+    UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initDeleteLovedVoiceList];
     [self _addToEngine:worker];
 }
 

@@ -21,17 +21,20 @@
 //最近播放列表,插入,查询
 + (void)insertPlayVoiceLasted:(VoiceDetailModel *)model;
 + (NSArray *)selectPlayVoiceLastedList;
++ (void)deletePlayVoiceLastedList;
++ (void)deletePlayVoiceLasted:(VoiceDetailModel *)model;
 
 //下载音乐
 + (BOOL)insertDownload:(VoiceDetailModel *)model;
 + (void)updateDownload:(VoiceDetailModel *)model;
-+ (NSArray *)selectDownloadList;
++ (NSArray *)selectDownloadList:(BOOL)finished;
 
 //喜欢音乐
 + (void)insertLovedVoice:(VoiceDetailModel *)model;
 + (NSArray *)selectLovedVoiceList;
 + (BOOL)checkLovedVoice:(VoiceDetailModel *)model;
 + (void)deleteLovedVoice:(VoiceDetailModel *)model;
++ (void)deleteLovedVoiceList;
 
 //收藏专辑
 + (void)insertCollectAlbum:(AlbumVoiceModel *)model;

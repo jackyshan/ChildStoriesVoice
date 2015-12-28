@@ -19,7 +19,9 @@
 #define ITEM_HEIGH 180
 #define kHeaderHeight 20
 
-@interface HomeViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HomeViewController ()<UICollectionViewDataSource, UICollectionViewDelegate> {
+    NSUInteger _pageId;
+}
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -41,6 +43,7 @@
     self.title = @"儿童故事音汇";
     
     self.mArr = [NSMutableArray array];
+    _pageId = 1;
     [self loadingData];
 }
 
@@ -69,6 +72,13 @@
         _collectionView.backgroundColor = COLOR_FFFFFF;
         
         [_collectionView registerClass:[HomeCollectionCell class] forCellWithReuseIdentifier:HOME_COLLECTION_CELL];
+        
+        @weakify(self)
+        [_collectionView addFooterWithCallback:^{
+            @strongify(self)
+            [self.collectionView endFooterRefresh];
+            [self loadingData];
+        }];
     }
     
     return _collectionView;
@@ -84,9 +94,6 @@
 - (void)loadingData {
     [super loadingData];
     
-    MBProgressHUD *hub = [[MBProgressHUD alloc] init];
-    hub.labelText = @"请求中...";
-    [hub show:YES];
     NWHomeAlbums *homeAlbums = [[NWHomeAlbums alloc] init];
     [homeAlbums setCompletion:^(NSArray *arr, BOOL succ) {
         if (succ) {
@@ -100,10 +107,12 @@
         else {
             [self loadingFial];
         }
+        
+        [_collectionView endFooterNoMore:20 arr:arr];
     }];
     
     homeAlbums.path = @"948/common_tag/6/童话故事";
-    [homeAlbums startRequestWithParams:@{@"page_id":@(1)}];
+    [homeAlbums startRequestWithParams:@{@"page_id":@(_pageId++)}];
 }
 
 #pragma mark - UICollectionViewDataSource

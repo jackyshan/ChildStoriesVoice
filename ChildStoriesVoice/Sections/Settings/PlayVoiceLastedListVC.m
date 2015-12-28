@@ -9,14 +9,16 @@
 #import "PlayVoiceLastedListVC.h"
 #import "DataBaseServer.h"
 #import "VoiceDetailCell.h"
+#import "BlockAlertView.h"
 
 #define VOICE_DETAIL_CELL @"voiceDetailCell"
 
 @interface PlayVoiceLastedListVC()<UITableViewDataSource, UITableViewDelegate> {
-    NSArray *_mArr;
+    NSMutableArray *_mArr;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) BlockAlertView *alertView;
 
 @end
 
@@ -27,7 +29,31 @@
     
     self.title = @"最近播放";
     
+    [self createRightButtonWithTitle:nil withRightImage:[UIImage imageNamed:@"trash"]];
+    
     [self loadingData];
+}
+
+- (void)rightBarbuttonClick:(UIBarButtonItem *)item {
+    [self alertView];
+}
+
+- (BlockAlertView *)alertView {
+    _alertView = [[BlockAlertView alloc] initWithTitle:@"提示"];
+    _alertView.alertMessage = @"确定要清空最近播放列表吗？";
+    [_alertView addTitle:@"取消" block:nil];
+    
+    @weakify(self)
+    [_alertView addTitle:@"确定" block:^(id result) {
+        @strongify(self)
+        [self->_mArr removeAllObjects];
+        [DataBaseServer deletePlayVoiceLastedList];
+        [self.tableView reloadData];
+    }];
+    
+    [_alertView show];
+    
+    return _alertView;
 }
 
 - (void)addSubviews {
@@ -56,7 +82,7 @@
 }
 
 - (void)loadingData {
-    _mArr = [DataBaseServer selectPlayVoiceLastedList];
+    _mArr = [NSMutableArray arrayWithArray:[DataBaseServer selectPlayVoiceLastedList]];
     [_tableView reloadData];
 }
 
@@ -86,6 +112,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.f;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    VoiceDetailModel *model = _mArr[indexPath.row];
+    [DataBaseServer deletePlayVoiceLasted:model];
+    
+    [tableView reloadData];
 }
 
 @end

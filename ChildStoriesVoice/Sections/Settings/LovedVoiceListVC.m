@@ -9,14 +9,16 @@
 #import "LovedVoiceListVC.h"
 #import "DataBaseServer.h"
 #import "VoiceDetailCell.h"
+#import "BlockAlertView.h"
 
 #define VOICE_DETAIL_CELL @"voiceDetailCell"
 
 @interface LovedVoiceListVC()<UITableViewDataSource, UITableViewDelegate> {
-    NSArray *_mArr;
+    NSMutableArray *_mArr;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) BlockAlertView *alertView;
 
 @end
 
@@ -27,7 +29,31 @@
     
     self.title = @"喜欢的音乐";
     
+    [self createRightButtonWithTitle:nil withRightImage:[UIImage imageNamed:@"trash"]];
+    
     [self loadingData];
+}
+
+- (void)rightBarbuttonClick:(UIBarButtonItem *)item {
+    [self alertView];
+}
+
+- (BlockAlertView *)alertView {
+    _alertView = [[BlockAlertView alloc] initWithTitle:@"提示"];
+    _alertView.alertMessage = @"确定要清空喜欢的音乐列表吗？";
+    [_alertView addTitle:@"取消" block:nil];
+    
+    @weakify(self)
+    [_alertView addTitle:@"确定" block:^(id result) {
+        @strongify(self)
+        [self->_mArr removeAllObjects];
+        [DataBaseServer deleteLovedVoiceList];
+        [self.tableView reloadData];
+    }];
+    
+    [_alertView show];
+    
+    return _alertView;
 }
 
 - (void)addSubviews {
@@ -56,7 +82,7 @@
 }
 
 - (void)loadingData {
-    _mArr = [DataBaseServer selectLovedVoiceList];
+    _mArr = [NSMutableArray arrayWithArray:[DataBaseServer selectLovedVoiceList]];
     [_tableView reloadData];
 }
 
@@ -86,6 +112,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.f;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    VoiceDetailModel *model = _mArr[indexPath.row];
+    [DataBaseServer deleteLovedVoice:model];
+    
+    [tableView reloadData];
 }
 
 @end

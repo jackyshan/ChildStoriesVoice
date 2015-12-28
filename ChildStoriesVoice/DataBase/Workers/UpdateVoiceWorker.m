@@ -110,6 +110,30 @@
     return self;
 }
 
+- (instancetype)initDeletePlayVoiceLastedList {
+    if (self = [super init]) {
+        self.execute = ^(FMDatabase *dbHelper) {
+            
+            NSString *commandText = @"DELETE FROM play_voice_lasted";
+            [dbHelper executeUpdate:commandText];
+        };
+    }
+    
+    return self;
+}
+
+- (instancetype)initDeletePlayVoiceLasted:(VoiceDetailModel *)model {
+    if (self = [super init]) {
+        self.execute = ^(FMDatabase *dbHelper) {
+            
+            NSString *commandText = @"DELETE FROM play_voice_lasted WHERE trackId = ?";
+            [dbHelper executeUpdate:commandText, model.trackId];
+        };
+    }
+    
+    return self;
+}
+
 //commandText = @"CREATE TABLE IF NOT EXISTS play_voice_download(id INTEGER PRIMARY KEY, trackId TEXT, title TEXT, coverSmall TEXT, coverLarge TEXT, playtimes TEXT, playUrl32 TEXT, playUrl64 TEXT, mp3size_32 TEXT, mp3size_64 TEXT, albumId TEXT, albumUid TEXT, duration TEXT, createdAt TEXT, updatedAt TEXT, progress TEXT, downloadProgress TEXT, finished TEXT, tag TEXT)";
 - (instancetype)initInsertDownload:(VoiceDetailModel *)model {
     if (self = [super init]) {
@@ -118,7 +142,7 @@
         self.execute = ^(FMDatabase *dbHelper){
             
             __strong __typeof(weakSelf) strongSelf = weakSelf;
-            NSString *commandText = @"SELECT * FROM WHERE trackId = ?";
+            NSString *commandText = @"SELECT * FROM play_voice_download WHERE trackId = ?";
             FMResultSet *result = [dbHelper executeQuery:commandText, model.trackId];
             
             if ([result next]) {
@@ -150,13 +174,13 @@
     return self;
 }
 
-- (instancetype)initSelectDownloadList {
+- (instancetype)initSelectDownloadList:(BOOL)finished {
     if (self = [super init]) {
         
         __weak __typeof(self) weakSelf = self;
         self.execute = ^(FMDatabase *dbHelper) {
-            NSString *commandText = @"SELECT * FROM play_voice_download";
-            FMResultSet *result = [dbHelper executeQuery:commandText];
+            NSString *commandText = @"SELECT * FROM play_voice_download WHERE finished = ?";
+            FMResultSet *result = [dbHelper executeQuery:commandText, @(finished).stringValue];
             
             __strong __typeof(weakSelf) strongSelf = weakSelf;
             NSMutableArray *mArr = [NSMutableArray array];
@@ -230,6 +254,18 @@
         self.execute = ^(FMDatabase *dbHelper) {
             NSString *commandText = @"DELETE FROM play_voice_loved WHERE trackId = ?";
             [dbHelper executeUpdate:commandText, model.trackId];
+        };
+    }
+    
+    return self;
+}
+
+- (instancetype)initDeleteLovedVoiceList {
+    if (self = [super init]) {
+        
+        self.execute = ^(FMDatabase *dbHelper) {
+            NSString *commandText = @"DELETE FROM play_voice_loved";
+            [dbHelper executeUpdate:commandText];
         };
     }
     

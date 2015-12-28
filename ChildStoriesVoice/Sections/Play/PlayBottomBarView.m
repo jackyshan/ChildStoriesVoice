@@ -8,10 +8,11 @@
 
 #import "PlayBottomBarView.h"
 #import "JackyBusiness.pch"
-#import "STKAudioPlayer.h"
 #import "DataBaseServer.h"
 #import "BlockAlertView.h"
 #import "PlayVoiceListVC.h"
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface PlayBottomBarView()<STKAudioPlayerDelegate> {
     VoiceDetailModel *_model;
@@ -39,6 +40,11 @@
         [self addSubview:self.moreActionBtn];
         
         [self defineLayout];
+        
+        //后台播放音频设置
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
     
     return self;
@@ -175,41 +181,53 @@
     return _audioPlayer;
 }
 
+#pragma mark - 播放
 - (void)playWithModel:(VoiceDetailModel *)model andModels:(NSArray *)models {
-    if (!model || !model.playUrl64) {
+    if (!model || !model.playUrl64 || model == _model) {
         return;
     }
     
     _model = model;
     [self.audioPlayer playURL:model.playUrl64 withQueueItemID:model];
     
-    //database
-    [DataBaseServer deletePlayVoiceList];
-    [DataBaseServer insertPlayVoice:model];
-    
     if (!models) {
+        [DataBaseServer deletePlayVoiceList];
+        [DataBaseServer insertPlayVoice:model];
         return;
     }
     
-    _models = models;
+    if (_models != models) {//插入播放列表数据库
+        [DataBaseServer deletePlayVoiceList];
+        [models enumerateObjectsUsingBlock:^(VoiceDetailModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [DataBaseServer insertPlayVoice:obj];
+        }];
+        
+        _models = models;
+    }
+    
     NSUInteger endIndex = models.count;
     NSUInteger startIndex = [models indexOfObject:model]+1;
     NSIndexSet *indexSet =  [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, endIndex - startIndex)];
     NSArray *objecs = [models objectsAtIndexes:indexSet];
     [objecs enumerateObjectsUsingBlock:^(VoiceDetailModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self.audioPlayer queueURL:obj.playUrl64 withQueueItemId:obj];
-        [DataBaseServer insertPlayVoice:obj];
     }];
 }
 
+//开机启动播放
 - (void)appStartPlayModel {
     NSArray *models = [DataBaseServer selectPlayVoiceList];
-    
     if (models.count < 1) {
         return;
     }
     
     NSArray *lastedList = [DataBaseServer selectPlayVoiceLastedList];
+    if (lastedList.count < 1) {
+        return;
+    }
+    
+    _models = models;
+    
     VoiceDetailModel *model = lastedList[0];
     NSUInteger endIndex = models.count;
     __block NSUInteger startIndex;
@@ -228,14 +246,17 @@
     NSArray *objecs = [models objectsAtIndexes:indexSet];
     
     _model = objecs[0];
-    _models = objecs;
-    [DataBaseServer deletePlayVoiceList];
+    //开机启动不操作数据库
+//    [DataBaseServer deletePlayVoiceList];
     [objecs enumerateObjectsUsingBlock:^(VoiceDetailModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self.audioPlayer queueURL:obj.playUrl64 withQueueItemId:obj];
-        [DataBaseServer insertPlayVoice:obj];
+//        [DataBaseServer insertPlayVoice:obj];
     }];
     
     [self.audioPlayer seekToTime:_model.progress.doubleValue];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self configNowPlayingInfoCenter];
 }
 
 #pragma mark - STKAudioPlayerDelegate
@@ -252,14 +273,15 @@
 //    });
     
     queueItemId.playing = YES;
+    _model = queueItemId;
 }
 /// Raised when an item has finished buffering (may or may not be the currently playing item)
 /// This event may be raised multiple times for the same item if seek is invoked on the player
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishBufferingSourceWithQueueItemId:(NSObject*)queueItemId {
+- (void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishBufferingSourceWithQueueItemId:(NSObject*)queueItemId {
     NSLog(@"didFinishBufferingSourceWithQueueItemId");
 }
 /// Raised when the state of the player has changed
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState {
+- (void) audioPlayer:(STKAudioPlayer*)audioPlayer stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState {
     NSLog(@"stateChanged");
     
     self.playBtn.selected = state == STKAudioPlayerStatePlaying ? YES : NO;
@@ -268,13 +290,119 @@
     [DataBaseServer insertPlayVoice:model];
 }
 /// Raised when an item has finished playing
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishPlayingQueueItemId:(VoiceDetailModel *)queueItemId withReason:(STKAudioPlayerStopReason)stopReason andProgress:(double)progress andDuration:(double)duration {
+- (void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishPlayingQueueItemId:(VoiceDetailModel *)queueItemId withReason:(STKAudioPlayerStopReason)stopReason andProgress:(double)progress andDuration:(double)duration {
     NSLog(@"didFinishPlayingQueueItemId");
     queueItemId.playing = NO;
 }
 /// Raised when an unexpected and possibly unrecoverable error has occured (usually best to recreate the STKAudioPlauyer)
--(void) audioPlayer:(STKAudioPlayer*)audioPlayer unexpectedError:(STKAudioPlayerErrorCode)errorCode {
+- (void) audioPlayer:(STKAudioPlayer*)audioPlayer unexpectedError:(STKAudioPlayerErrorCode)errorCode {
     NSLog(@"unexpectedError");
+}
+
+#pragma mark - 后台播放
+//设置锁屏信息
+- (void)configNowPlayingInfoCenter
+{
+    @autoreleasepool {
+        VoiceDetailModel *info = _model;
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        
+        //歌曲名称
+        [dict setObject:info.title forKey:MPMediaItemPropertyTitle];
+        
+        //演唱者
+        [dict setObject:@"儿童故事音汇" forKey:MPMediaItemPropertyArtist];
+        
+        //专辑名
+        //[dict setObject:[info ObjectNullForKey:@"album"] forKey:MPMediaItemPropertyAlbumTitle];
+        
+        //音乐剩余时长
+        [dict setObject:[NSNumber numberWithDouble:info.duration.doubleValue] forKey:MPMediaItemPropertyPlaybackDuration];
+        
+        //音乐当前播放时间 在计时器中修改
+        [dict setObject:[NSNumber numberWithDouble:self.audioPlayer.progress] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+        
+        //专辑缩略图
+        if (info.coverLarge != nil) {
+            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:info.coverLarge] options:SDWebImageDownloaderContinueInBackground progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                if (!image) {
+                    NSLog(@"%@", error.localizedDescription);
+                    return;
+                }
+                MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+                [dict setObject:artwork forKey:MPMediaItemPropertyArtwork];
+                [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
+            }];
+            
+            [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
+        }
+        else {
+            //无图的时候，读取图...
+            
+            //设置锁屏状态下屏幕显示播放音乐信息
+            [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
+        }
+        
+    }
+}
+
+//响应远程音乐播放控制消息
+- (void)handleRemoteControlEvent:(UIEvent *)receivedEvent {
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        switch (receivedEvent.subtype) {
+            case UIEventSubtypeRemoteControlPlay:
+                //点击了播放
+                [self.audioPlayer resume];
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                //点击了暂停
+                [self.audioPlayer pause];
+                break;
+            case UIEventSubtypeRemoteControlStop:
+                //点击了停止
+                [self.audioPlayer stop];
+                break;
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                //切换播放器app
+                [self.audioPlayer pause];
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                //点击了下一首
+                [self playNextMusic];
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                //点击了上一首
+                [self playPreMusic];
+                //此时需要更改歌曲信息
+                break;
+            default:
+                break;
+        }
+        
+        [self configNowPlayingInfoCenter];
+    }
+}
+
+#pragma mark - 下一首上一首
+- (void)playNextMusic {
+    VoiceDetailModel *model = (VoiceDetailModel *)self.audioPlayer.currentlyPlayingQueueItemId;
+    if (![_models containsObject:model] || [_models indexOfObject:model] >= _models.count-1) {
+        return;
+    }
+    
+    NSUInteger idx = [_models indexOfObject:model];
+    [self playWithModel:_models[idx+1] andModels:_models];
+}
+
+- (void)playPreMusic {
+    VoiceDetailModel *model = (VoiceDetailModel *)self.audioPlayer.currentlyPlayingQueueItemId;
+    if (![_models containsObject:model] || [_models indexOfObject:model] <= 0) {
+        return;
+    }
+    
+    NSUInteger idx = [_models indexOfObject:model];
+    [self playWithModel:_models[idx-1] andModels:_models];
 }
 
 @end

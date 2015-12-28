@@ -51,9 +51,25 @@
     return _playBottomBar;
 }
 
+//重写父类方法，接受外部事件的处理
+- (void)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent {
+    [self.playBottomBar handleRemoteControlEvent:receivedEvent];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    //MBAudioPlayer是我为播放器写的单例，这段就是当音乐还在播放状态的时候，给后台权限，不在播放状态的时候，收回后台权限
+    if (self.playBottomBar.audioPlayer.state == STKAudioPlayerStatePlaying||self.playBottomBar.audioPlayer.state == STKAudioPlayerStateBuffering||self.playBottomBar.audioPlayer.state == STKAudioPlayerStatePaused ||self.playBottomBar.audioPlayer.state == STKAudioPlayerStateStopped) {
+        //有音乐播放时，才给后台权限，不做流氓应用。
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        [self becomeFirstResponder];
+        //开启定时器
+        [self.playBottomBar configNowPlayingInfoCenter];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+        [self resignFirstResponder];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
