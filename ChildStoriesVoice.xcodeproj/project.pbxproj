@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180DD1E51C31927100E8EE5B /* DownloadVoiceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DD1E41C31927100E8EE5B /* DownloadVoiceDetailCell.m */; };
 		184608871C2EB131006F0B55 /* UpdateVoiceWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */; };
 		1846088F1C2FB686006F0B55 /* PlayVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846088E1C2FB686006F0B55 /* PlayVoiceListVC.m */; };
 		184608921C2FB89A006F0B55 /* PlayVoiceLastedListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608911C2FB89A006F0B55 /* PlayVoiceLastedListVC.m */; };
@@ -76,6 +77,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180DD1E31C31927100E8EE5B /* DownloadVoiceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVoiceDetailCell.h; sourceTree = "<group>"; };
+		180DD1E41C31927100E8EE5B /* DownloadVoiceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVoiceDetailCell.m; sourceTree = "<group>"; };
 		184608851C2EB131006F0B55 /* UpdateVoiceWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateVoiceWorker.h; sourceTree = "<group>"; };
 		184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateVoiceWorker.m; sourceTree = "<group>"; };
 		1846088D1C2FB686006F0B55 /* PlayVoiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVoiceListVC.h; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 				184608971C2FBA98006F0B55 /* CollectAlbumListVC.m */,
 				184608991C2FC15E006F0B55 /* DownloadVoiceListVC.h */,
 				1846089A1C2FC15E006F0B55 /* DownloadVoiceListVC.m */,
+				180DD1E31C31927100E8EE5B /* DownloadVoiceDetailCell.h */,
+				180DD1E41C31927100E8EE5B /* DownloadVoiceDetailCell.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -652,6 +657,7 @@
 				6D3AD2461C23B9150036EFD9 /* HomeCollectionCell.m in Sources */,
 				6D3AD2091C22B5DD0036EFD9 /* BaseNetwork.m in Sources */,
 				6D3AD2101C22B5DD0036EFD9 /* ProjectHelper.m in Sources */,
+				180DD1E51C31927100E8EE5B /* DownloadVoiceDetailCell.m in Sources */,
 				6D3AD2531C24024A0036EFD9 /* AlbumDetailListVC.m in Sources */,
 				6D3AD2071C22B5DD0036EFD9 /* BaseCollectionViewCell.m in Sources */,
 				6D3AD24C1C23F3FE0036EFD9 /* NWHomeAlbums.m in Sources */,

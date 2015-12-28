@@ -306,6 +306,10 @@
     @autoreleasepool {
         VoiceDetailModel *info = _model;
         
+        if (!info.playUrl64 || !info.title) {
+            return;
+        }
+        
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
         //歌曲名称

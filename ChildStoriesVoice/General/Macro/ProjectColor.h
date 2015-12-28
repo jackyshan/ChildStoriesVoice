@@ -22,5 +22,6 @@
 #define COLOR_32393D [UIColor colorWithRed:0x32 / 255.0f green:0x39 / 255.0f blue:0x3d / 255.0f alpha:1.0f]
 #define COLOR_94999C [UIColor colorWithRed:0x94 / 255.0f green:0x99 / 255.0f blue:0x9c / 255.0f alpha:1.0f]
 #define COLOR_F0F2F2 [UIColor colorWithRed:0xf0 / 255.0f green:0xf2 / 255.0f blue:0xf2 / 255.0f alpha:1.0f]
+#define COLOR_9AFCB8 [UIColor colorWithRed:0x9a / 255.0f green:0xfc / 255.0f blue:0xb8 / 255.0f alpha:1.0f]
 
 #endif /* ProjectColor_h */

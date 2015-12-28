@@ -213,7 +213,7 @@
         
         __weak __typeof(self) weakSelf = self;
         self.execute = ^(FMDatabase *dbHelper) {
-            NSString *commandText = @"SELECT * FROM play_voice_loved";
+            NSString *commandText = @"SELECT * FROM play_voice_loved ORDER BY id DESC";
             FMResultSet *result = [dbHelper executeQuery:commandText];
             
             __strong __typeof(weakSelf) strongSelf = weakSelf;

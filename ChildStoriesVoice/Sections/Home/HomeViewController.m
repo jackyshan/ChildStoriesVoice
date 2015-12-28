@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong) NSMutableArray *mArr;
 
+@property (nonatomic, strong) MBProgressHUD *hub;
+
 @end
 
 @implementation HomeViewController
@@ -49,6 +51,7 @@
 
 - (void)addSubviews {
     [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.hub];
     
     [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"search"]];
     [self createRightButtonWithTitle:nil withRightImage:[UIImage imageNamed:@"settings"]];
@@ -91,9 +94,19 @@
     }];
 }
 
+- (MBProgressHUD *)hub {
+    if (!_hub) {
+        _hub = [[MBProgressHUD alloc] initWithView:self.view];
+        _hub.labelText = @"正在加载";
+    }
+    
+    return _hub;
+}
+
 - (void)loadingData {
     [super loadingData];
     
+    [_hub show:YES];
     NWHomeAlbums *homeAlbums = [[NWHomeAlbums alloc] init];
     [homeAlbums setCompletion:^(NSArray *arr, BOOL succ) {
         if (succ) {
@@ -108,6 +121,7 @@
             [self loadingFial];
         }
         
+        [_hub hide:YES];
         [_collectionView endFooterNoMore:20 arr:arr];
     }];
     
