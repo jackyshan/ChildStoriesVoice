@@ -7,6 +7,8 @@
 //
 
 #import "DownloadVoiceDetailCell.h"
+#import "VoiceDetailModel.h"
+#import "DownloadVoiceListVC.h"
 
 @interface DownloadVoiceDetailCell()
 
@@ -18,7 +20,6 @@
 
 - (void)addSubviews {
     [super addSubviews];
-    
     [self.contentView addSubview:self.roundProgressView];
 }
 
@@ -26,7 +27,7 @@
     if (!_roundProgressView) {
         _roundProgressView = [[MBRoundProgressView alloc] init];
         _roundProgressView.progressTintColor = COLOR_9AFCB8;
-        _roundProgressView.progress = 1.0;
+        _roundProgressView.backgroundTintColor = COLOR_9AFCB8;
     }
     
     return _roundProgressView;
@@ -36,10 +37,26 @@
     [super defineLayout];
     
     [_roundProgressView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(14);
         make.right.mas_equalTo(-10);
         make.width.height.mas_equalTo(22);
-        make.center.equalTo(self.contentView);
     }];
+}
+
+- (void)setNwDownload:(NWDownLoad *)nwDownload {
+    _nwDownload = nwDownload;
+    
+    @weakify(self)
+    [_nwDownload setCompletion:^(NSNumber *progress, BOOL succ) {
+        @strongify(self)
+        self.roundProgressView.progress = progress.floatValue;
+    }];
+}
+
+- (void)updateWithModel:(VoiceDetailModel *)model {
+    [super updateWithModel:model];
+    
+    _roundProgressView.progress = model.downloadProgress;
 }
 
 @end

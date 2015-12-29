@@ -7,11 +7,20 @@
 //
 
 #import "VoiceDetailModel.h"
+#import "CommonHelper.h"
 
 @implementation VoiceDetailModel
 
 - (NSString *)playtime {
     return @([NSDate date].timeIntervalSince1970).stringValue;
+}
+
+- (NSString *)savePath {
+    if (!_savePath) {
+        _savePath = [CommonHelper getDownloadRelativePath:[NSString stringWithFormat:@"%@.mp3", self.title]];
+    }
+    
+    return _savePath;
 }
 
 @end

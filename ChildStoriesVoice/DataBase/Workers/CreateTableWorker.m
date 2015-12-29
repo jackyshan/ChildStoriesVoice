@@ -75,11 +75,12 @@
              createdAt
              updatedAt
              
+             savePath              下载路径
              progress              播放进度
              downloadProgress                     下载进度
              finished                     下载完成
              **/
-            commandText = @"CREATE TABLE IF NOT EXISTS play_voice_download(id INTEGER PRIMARY KEY, trackId TEXT, title TEXT, coverSmall TEXT, coverLarge TEXT, playtimes TEXT, playUrl32 TEXT, playUrl64 TEXT, mp3size_32 TEXT, mp3size_64 TEXT, albumId TEXT, albumUid TEXT, duration TEXT, createdAt TEXT, updatedAt TEXT, progress TEXT, downloadProgress TEXT, finished TEXT, tag TEXT)";
+            commandText = @"CREATE TABLE IF NOT EXISTS play_voice_download(id INTEGER PRIMARY KEY, trackId TEXT, title TEXT, coverSmall TEXT, coverLarge TEXT, playtimes TEXT, playUrl32 TEXT, playUrl64 TEXT, mp3size_32 TEXT, mp3size_64 TEXT, albumId TEXT, albumUid TEXT, duration TEXT, createdAt TEXT, updatedAt TEXT, savePath TEXT, progress TEXT, downloadProgress TEXT, finished TEXT, tag TEXT)";
             [dbHelper executeUpdate:commandText];
             
             /**

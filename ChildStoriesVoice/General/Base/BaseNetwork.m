@@ -261,7 +261,7 @@ static MKNetworkEngine *_testEngine = nil;
 			[operation addFile:[fileDic objectForKey:@"path"] forKey:[fileDic objectForKey:@"name"]];
 		}
 	}
-
+    
 	[operation addCompletionHandler: ^(MKNetworkOperation *completedOperation) {
 	    [self requestComplete:completedOperation];
 	} errorHandler: ^(MKNetworkOperation *completedOperation, NSError *error) {
@@ -272,6 +272,11 @@ static MKNetworkEngine *_testEngine = nil;
 	if (_fileDownload) {
 		NSString *savePath = [CommonHelper getDownloadSavePath:_fileSavePath];
 
+        if (![[NSURL URLWithString:_path].host isEqualToString:PackageDomain]) {
+            operation = nil;
+            operation = [engine operationWithURLString:_path params:_params httpMethod:(type == HttpMethodGet) ? @"GET" : @"POST"];
+        }
+        
 		if (_breakResume) {
 			NSString *headRange = [NSString stringWithFormat:@"bytes=%llu-", [CommonHelper getCacheFileSize:savePath]];
 			[operation addHeader:@"Range" withValue:headRange];

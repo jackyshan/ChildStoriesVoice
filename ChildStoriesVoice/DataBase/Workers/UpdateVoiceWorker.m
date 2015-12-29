@@ -149,8 +149,8 @@
                 strongSelf->_result = @{@"result":@(YES)};
             }
             else {
-                commandText = @"INSERT INTO play_voice_download (trackId, title, coverSmall, coverLarge, playtimes, playUrl32, playUrl64, mp3size_32, mp3size_64, albumId, albumUid, duration, createdAt, updatedAt, downloadProgress, finished) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                [dbHelper executeUpdate:commandText, model.trackId, model.title, model.coverSmall, model.coverLarge, model.playtimes, model.playUrl32, model.playUrl64, model.mp3size_32, model.mp3size_64, model.albumId, model.albumUid, model.duration, model.createdAt, model.updatedAt, model.downloadProgress, model.finished];
+                commandText = @"INSERT INTO play_voice_download (trackId, title, coverSmall, coverLarge, playtimes, playUrl32, playUrl64, mp3size_32, mp3size_64, albumId, albumUid, duration, createdAt, updatedAt, downloadProgress, finished, savePath) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                [dbHelper executeUpdate:commandText, model.trackId, model.title, model.coverSmall, model.coverLarge, model.playtimes, model.playUrl32, model.playUrl64, model.mp3size_32, model.mp3size_64, model.albumId, model.albumUid, model.duration, model.createdAt, model.updatedAt, @(model.downloadProgress).stringValue, @(model.finished).stringValue, model.savePath];
             }
             
         };
@@ -167,7 +167,7 @@
             }
             
             NSString *commandText = @"UPDATE play_voice_download SET downloadProgress = ?, finished = ? WHERE trackId = ?";
-            [dbHelper executeUpdate:commandText, model.downloadProgress, model.finished];
+            [dbHelper executeUpdate:commandText, @(model.downloadProgress).stringValue, @(model.finished).stringValue, model.trackId];
         };
     }
     
@@ -190,6 +190,17 @@
             }
             
             strongSelf->_result = @{@"result":mArr};
+        };
+    }
+    
+    return self;
+}
+
+- (instancetype)initDeleteDownload:(VoiceDetailModel *)model {
+    if (self = [super init]) {
+        self.execute = ^(FMDatabase *dbHelper) {
+            NSString *commandText = @"DELETE FROM play_voice_download WHERE trackId = ?";
+            [dbHelper executeUpdate:commandText, model.trackId];
         };
     }
     

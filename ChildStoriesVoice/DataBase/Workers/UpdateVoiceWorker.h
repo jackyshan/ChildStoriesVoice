@@ -27,6 +27,7 @@
 - (instancetype)initInsertDownload:(VoiceDetailModel *)model;
 - (instancetype)initUpdateDownload:(VoiceDetailModel *)model;
 - (instancetype)initSelectDownloadList:(BOOL)finished;
+- (instancetype)initDeleteDownload:(VoiceDetailModel *)model;
 
 //喜欢音乐
 - (instancetype)initInsertLovedVoice:(VoiceDetailModel *)model;

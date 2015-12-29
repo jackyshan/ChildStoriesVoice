@@ -28,6 +28,7 @@
 + (BOOL)insertDownload:(VoiceDetailModel *)model;
 + (void)updateDownload:(VoiceDetailModel *)model;
 + (NSArray *)selectDownloadList:(BOOL)finished;
++ (void)deleteDownload:(VoiceDetailModel *)model;
 
 //喜欢音乐
 + (void)insertLovedVoice:(VoiceDetailModel *)model;

@@ -7,7 +7,12 @@
 //
 
 #import "VoiceDetailCell.h"
+#import "NWDownLoad.h"
 
+@class DownloadVoiceListVC;
 @interface DownloadVoiceDetailCell : VoiceDetailCell
+
+@property (nonatomic, strong) NWDownLoad *nwDownload;
+@property (nonatomic, weak)  DownloadVoiceListVC *pViewController;
 
 @end

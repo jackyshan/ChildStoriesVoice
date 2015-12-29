@@ -9,6 +9,7 @@
 #import "DownloadVoiceListVC.h"
 #import "DataBaseServer.h"
 #import "DownloadVoiceDetailCell.h"
+#import "DownloadSingleton.h"
 
 #define DOWNLOAD_VOICE_DETAIL_CELL @"downloadVoiceDetailCell"
 
@@ -50,6 +51,9 @@
         [_segmentControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
         _segmentControl.tintColor = COLOR_94999C;
         _segmentControl.selectedSegmentIndex = 0;
+        
+        _mArr = [NSMutableArray array];
+        [self loadingData:NO];
     }
     
     return _segmentControl;
@@ -59,23 +63,8 @@
 - (void)segmentedControlAction:(UISegmentedControl *)sender {
     // 获取当前的选中项的索引值
     NSUInteger index = sender.selectedSegmentIndex;
-    // 判断索引值
-    switch (index) {
-        case 0:
-            NSLog(@"第一个选项被选中");
-            break;
-        case 1:
-            NSLog(@"第二个选项被选中");
-            break;
-        case 2:
-            NSLog(@"第三项被选中");
-            break;
-        case 3:
-            NSLog(@"第四项被选中");
-            break;
-        default:
-            break;
-    }
+    
+    [self loadingData:index];
 }
 
 - (void)defineLayout {
@@ -85,8 +74,10 @@
     }];
 }
 
-- (void)loadingData {
-    _mArr = [NSMutableArray arrayWithArray:[DataBaseServer selectDownloadList:YES]];
+- (void)loadingData:(BOOL)second {
+    [_mArr removeAllObjects];
+    
+    [_mArr addObjectsFromArray:[DataBaseServer selectDownloadList:!second]];
     [_tableView reloadData];
 }
 
@@ -96,7 +87,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _mArr.count+1;
+    return _mArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -105,13 +96,45 @@
     VoiceDetailModel *model = _mArr[indexPath.row];
     [cell updateWithModel:model];
     
+    [[DownloadSingleton shareInstance].downloadQueue enumerateObjectsUsingBlock:^(NWDownLoad *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.model.title isEqualToString:model.title]) {
+            cell.nwDownload = obj;
+            *stop = YES;
+        }
+    }];
+    
+    cell.pViewController = self;
+    
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     VoiceDetailModel *model = _mArr[indexPath.row];
-    [self.delegate.playBottomBar playWithModel:model andModels:_mArr];
+    
+    if (_segmentControl.selectedSegmentIndex == 0) {
+        [self.delegate.playBottomBar playWithModel:model andModels:_mArr];
+    }
+    else if (_segmentControl.selectedSegmentIndex == 1) {
+        if (model.downloadProgress == 1) {
+            return;
+        }
+        
+        DownloadVoiceDetailCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if (!cell.nwDownload) {
+            [DownloadSingleton startDownloadModel:model];
+            [tableView reloadData];
+            return;
+        }
+        
+        if ([cell.nwDownload downing]) {
+            [cell.nwDownload cancel];
+        }
+        else {
+            [cell.nwDownload startRequest];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -127,10 +150,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self p_deleteDownloadFile:indexPath];
+}
+
+- (void)p_deleteDownloadFile:(NSIndexPath *)indexPath {
     VoiceDetailModel *model = _mArr[indexPath.row];
-    [DataBaseServer deletePlayVoiceLasted:model];
-    
-    [tableView reloadData];
+    [DataBaseServer deleteDownload:model];
+    [CommonHelper deleteDownloadFile:model.savePath];
+    [_mArr removeObject:model];
+    DownloadVoiceDetailCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+    [[DownloadSingleton shareInstance] remove:cell.nwDownload];
+    [_tableView reloadData];
 }
 
 @end

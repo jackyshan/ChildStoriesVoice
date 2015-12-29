@@ -84,6 +84,10 @@ static NSString *databaseName = @"db.sqlite3";
     
     return [worker onResult][@"result"];
 }
++ (void)deleteDownload:(VoiceDetailModel *)model {
+    UpdateVoiceWorker *worker = [[UpdateVoiceWorker alloc] initDeleteDownload:model];
+    [self _addToEngine:worker];
+}
 
 //喜欢音乐
 + (void)insertLovedVoice:(VoiceDetailModel *)model {

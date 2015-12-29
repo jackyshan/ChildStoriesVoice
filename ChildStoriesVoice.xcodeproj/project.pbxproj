@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180DD1E51C31927100E8EE5B /* DownloadVoiceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DD1E41C31927100E8EE5B /* DownloadVoiceDetailCell.m */; };
 		184608871C2EB131006F0B55 /* UpdateVoiceWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */; };
 		1846088F1C2FB686006F0B55 /* PlayVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846088E1C2FB686006F0B55 /* PlayVoiceListVC.m */; };
 		184608921C2FB89A006F0B55 /* PlayVoiceLastedListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608911C2FB89A006F0B55 /* PlayVoiceLastedListVC.m */; };
 		184608951C2FBA36006F0B55 /* LovedVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608941C2FBA36006F0B55 /* LovedVoiceListVC.m */; };
 		184608981C2FBA98006F0B55 /* CollectAlbumListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608971C2FBA98006F0B55 /* CollectAlbumListVC.m */; };
-		1846089B1C2FC15E006F0B55 /* DownloadVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846089A1C2FC15E006F0B55 /* DownloadVoiceListVC.m */; };
 		6D0700FE1C2D3C0F00D34E95 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0700FD1C2D3C0F00D34E95 /* SettingsViewController.m */; };
 		6D0701021C2D456E00D34E95 /* SettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0701011C2D456E00D34E95 /* SettingModel.m */; };
+		6D07010F1C32592400D34E95 /* DownloadSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D07010E1C32592400D34E95 /* DownloadSingleton.m */; };
+		6D0701121C325B5000D34E95 /* NWDownLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0701111C325B5000D34E95 /* NWDownLoad.m */; };
+		6D0701171C326E1600D34E95 /* DownloadVoiceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0701141C326E1600D34E95 /* DownloadVoiceDetailCell.m */; };
+		6D0701181C326E1600D34E95 /* DownloadVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0701161C326E1600D34E95 /* DownloadVoiceListVC.m */; };
 		6D3AD2061C22B5DD0036EFD9 /* AnalyticsServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD1E01C22B5DD0036EFD9 /* AnalyticsServer.m */; };
 		6D3AD2071C22B5DD0036EFD9 /* BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD1E31C22B5DD0036EFD9 /* BaseCollectionViewCell.m */; };
 		6D3AD2081C22B5DD0036EFD9 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AD1E51C22B5DD0036EFD9 /* BaseModel.m */; };
@@ -77,8 +79,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		180DD1E31C31927100E8EE5B /* DownloadVoiceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVoiceDetailCell.h; sourceTree = "<group>"; };
-		180DD1E41C31927100E8EE5B /* DownloadVoiceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVoiceDetailCell.m; sourceTree = "<group>"; };
 		184608851C2EB131006F0B55 /* UpdateVoiceWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateVoiceWorker.h; sourceTree = "<group>"; };
 		184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateVoiceWorker.m; sourceTree = "<group>"; };
 		1846088D1C2FB686006F0B55 /* PlayVoiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVoiceListVC.h; sourceTree = "<group>"; };
@@ -89,12 +89,18 @@
 		184608941C2FBA36006F0B55 /* LovedVoiceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LovedVoiceListVC.m; sourceTree = "<group>"; };
 		184608961C2FBA98006F0B55 /* CollectAlbumListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectAlbumListVC.h; sourceTree = "<group>"; };
 		184608971C2FBA98006F0B55 /* CollectAlbumListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectAlbumListVC.m; sourceTree = "<group>"; };
-		184608991C2FC15E006F0B55 /* DownloadVoiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVoiceListVC.h; sourceTree = "<group>"; };
-		1846089A1C2FC15E006F0B55 /* DownloadVoiceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVoiceListVC.m; sourceTree = "<group>"; };
 		6D0700FC1C2D3C0F00D34E95 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6D0700FD1C2D3C0F00D34E95 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6D0701001C2D456E00D34E95 /* SettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingModel.h; sourceTree = "<group>"; };
 		6D0701011C2D456E00D34E95 /* SettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingModel.m; sourceTree = "<group>"; };
+		6D07010D1C32592400D34E95 /* DownloadSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadSingleton.h; sourceTree = "<group>"; };
+		6D07010E1C32592400D34E95 /* DownloadSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadSingleton.m; sourceTree = "<group>"; };
+		6D0701101C325B5000D34E95 /* NWDownLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWDownLoad.h; sourceTree = "<group>"; };
+		6D0701111C325B5000D34E95 /* NWDownLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWDownLoad.m; sourceTree = "<group>"; };
+		6D0701131C326E1600D34E95 /* DownloadVoiceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVoiceDetailCell.h; sourceTree = "<group>"; };
+		6D0701141C326E1600D34E95 /* DownloadVoiceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVoiceDetailCell.m; sourceTree = "<group>"; };
+		6D0701151C326E1600D34E95 /* DownloadVoiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVoiceListVC.h; sourceTree = "<group>"; };
+		6D0701161C326E1600D34E95 /* DownloadVoiceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVoiceListVC.m; sourceTree = "<group>"; };
 		6D3AD1CF1C22B1670036EFD9 /* JackyBusiness.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JackyBusiness.xcodeproj; path = ../../JackyBusiness/JackyBusiness.xcodeproj; sourceTree = "<group>"; };
 		6D3AD1DA1C22B1E30036EFD9 /* NotificationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
 		6D3AD1DB1C22B1E30036EFD9 /* ProjectMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectMacro.h; sourceTree = "<group>"; };
@@ -211,12 +217,23 @@
 				184608941C2FBA36006F0B55 /* LovedVoiceListVC.m */,
 				184608961C2FBA98006F0B55 /* CollectAlbumListVC.h */,
 				184608971C2FBA98006F0B55 /* CollectAlbumListVC.m */,
-				184608991C2FC15E006F0B55 /* DownloadVoiceListVC.h */,
-				1846089A1C2FC15E006F0B55 /* DownloadVoiceListVC.m */,
-				180DD1E31C31927100E8EE5B /* DownloadVoiceDetailCell.h */,
-				180DD1E41C31927100E8EE5B /* DownloadVoiceDetailCell.m */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		6D07010A1C3258D300D34E95 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				6D07010D1C32592400D34E95 /* DownloadSingleton.h */,
+				6D07010E1C32592400D34E95 /* DownloadSingleton.m */,
+				6D0701101C325B5000D34E95 /* NWDownLoad.h */,
+				6D0701111C325B5000D34E95 /* NWDownLoad.m */,
+				6D0701151C326E1600D34E95 /* DownloadVoiceListVC.h */,
+				6D0701161C326E1600D34E95 /* DownloadVoiceListVC.m */,
+				6D0701131C326E1600D34E95 /* DownloadVoiceDetailCell.h */,
+				6D0701141C326E1600D34E95 /* DownloadVoiceDetailCell.m */,
+			);
+			path = Download;
 			sourceTree = "<group>";
 		};
 		6D3AD1CA1C22B1540036EFD9 /* General */ = {
@@ -366,6 +383,7 @@
 		6D3AD2151C22B6380036EFD9 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				6D07010A1C3258D300D34E95 /* Download */,
 				6D0700F91C2D3BFD00D34E95 /* Settings */,
 				6D3AD2691C2A8FAB0036EFD9 /* Play */,
 				6D3AD21F1C22B8610036EFD9 /* Home */,
@@ -635,8 +653,10 @@
 				6D3AD2351C22BF010036EFD9 /* main.m in Sources */,
 				6D3AD26E1C2A8FD10036EFD9 /* PlayBottomBarView.m in Sources */,
 				6D3AD2121C22B5DD0036EFD9 /* ShareServer.m in Sources */,
-				1846089B1C2FC15E006F0B55 /* DownloadVoiceListVC.m in Sources */,
 				6D3AD2081C22B5DD0036EFD9 /* BaseModel.m in Sources */,
+				6D0701121C325B5000D34E95 /* NWDownLoad.m in Sources */,
+				6D07010F1C32592400D34E95 /* DownloadSingleton.m in Sources */,
+				6D0701181C326E1600D34E95 /* DownloadVoiceListVC.m in Sources */,
 				6D3AD20B1C22B5DD0036EFD9 /* BaseViewController.m in Sources */,
 				6D3AD24F1C24006E0036EFD9 /* NWAlbumDetails.m in Sources */,
 				6D3AD2491C23F2A20036EFD9 /* AlbumVoiceModel.m in Sources */,
@@ -657,7 +677,6 @@
 				6D3AD2461C23B9150036EFD9 /* HomeCollectionCell.m in Sources */,
 				6D3AD2091C22B5DD0036EFD9 /* BaseNetwork.m in Sources */,
 				6D3AD2101C22B5DD0036EFD9 /* ProjectHelper.m in Sources */,
-				180DD1E51C31927100E8EE5B /* DownloadVoiceDetailCell.m in Sources */,
 				6D3AD2531C24024A0036EFD9 /* AlbumDetailListVC.m in Sources */,
 				6D3AD2071C22B5DD0036EFD9 /* BaseCollectionViewCell.m in Sources */,
 				6D3AD24C1C23F3FE0036EFD9 /* NWHomeAlbums.m in Sources */,
@@ -665,6 +684,7 @@
 				6D3AD2111C22B5DD0036EFD9 /* IAPHelper.m in Sources */,
 				6D3AD2861C2AA6850036EFD9 /* NSMutableArray+STKAudioPlayer.m in Sources */,
 				6D0700FE1C2D3C0F00D34E95 /* SettingsViewController.m in Sources */,
+				6D0701171C326E1600D34E95 /* DownloadVoiceDetailCell.m in Sources */,
 				6D3AD2591C240F9E0036EFD9 /* VoiceDetailCell.m in Sources */,
 				6D3AD20C1C22B5DD0036EFD9 /* GADView.m in Sources */,
 				6D3AD2871C2AA6850036EFD9 /* STKAudioPlayer.m in Sources */,

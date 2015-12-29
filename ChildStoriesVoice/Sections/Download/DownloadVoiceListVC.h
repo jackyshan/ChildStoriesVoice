@@ -10,4 +10,6 @@
 
 @interface DownloadVoiceListVC : BaseViewController
 
+@property (nonatomic, readonly) UITableView *tableView;
+
 @end

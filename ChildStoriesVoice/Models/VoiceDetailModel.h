@@ -29,9 +29,11 @@
 @property (nonatomic, assign) BOOL playing;
 
 //database
-@property (nonatomic, strong) NSString *progress;
+@property (nonatomic, strong) NSString *savePath;
+@property (nonatomic, strong) NSString *progress; //播放进度
 @property (nonatomic, strong) NSString *playtime;
-@property (nonatomic, assign) CGFloat downloadProgress;
+@property (nonatomic, assign) BOOL downIng;//正在下载
+@property (nonatomic, assign) CGFloat downloadProgress; //下载进度
 @property (nonatomic, assign) BOOL finished;
 
 @end

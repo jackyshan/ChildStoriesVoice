@@ -13,6 +13,7 @@
 #import "PlayVoiceListVC.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "DownloadSingleton.h"
 
 @interface PlayBottomBarView()<STKAudioPlayerDelegate> {
     VoiceDetailModel *_model;
@@ -118,17 +119,27 @@
     if (model) {
         _alertView = [[BlockAlertView alloc] initWithTitle:model.title style:AlertStyleSheet];
         @weakify(self)
+        
+        [_alertView addTitle:@"下载" block:^(id result) {
+            [DownloadSingleton insertDownloadModel:model];
+        }];
+        
+        [_alertView addTitle:@"播放上一首" block:^(id result) {
+            @strongify(self);
+            [self playPreMusic];
+        }];
+        
+        [_alertView addTitle:@"播放下一首" block:^(id result) {
+            @strongify(self);
+            [self playNextMusic];
+        }];
+        
         [_alertView addTitle:@"播放列表" block:^(id result) {
             @strongify(self);
             PlayVoiceListVC *vc = [[PlayVoiceListVC alloc] init];
             UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
             
             [((UINavigationController *)self.window.rootViewController) presentViewController:navi animated:YES completion:nil];
-        }];
-        
-        [_alertView addTitle:@"下载" block:^(id result) {
-            //        @strongify(self);
-            NSLog(@"download %@", model.title);
         }];
         
         if ([DataBaseServer checkLovedVoice:model]) {
