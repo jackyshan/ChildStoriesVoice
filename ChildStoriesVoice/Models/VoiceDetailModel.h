@@ -27,6 +27,7 @@
 
 //system
 @property (nonatomic, assign) BOOL playing;
+@property (nonatomic, strong) NSURL *playRealUrl;
 
 //database
 @property (nonatomic, strong) NSString *savePath;

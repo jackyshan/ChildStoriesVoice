@@ -117,7 +117,7 @@
         [self.delegate.playBottomBar playWithModel:model andModels:_mArr];
     }
     else if (_segmentControl.selectedSegmentIndex == 1) {
-        if (model.downloadProgress == 1) {
+        if (model.finished) {
             return;
         }
         

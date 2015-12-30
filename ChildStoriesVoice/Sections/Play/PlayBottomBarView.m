@@ -124,24 +124,6 @@
             [DownloadSingleton insertDownloadModel:model];
         }];
         
-        [_alertView addTitle:@"播放上一首" block:^(id result) {
-            @strongify(self);
-            [self playPreMusic];
-        }];
-        
-        [_alertView addTitle:@"播放下一首" block:^(id result) {
-            @strongify(self);
-            [self playNextMusic];
-        }];
-        
-        [_alertView addTitle:@"播放列表" block:^(id result) {
-            @strongify(self);
-            PlayVoiceListVC *vc = [[PlayVoiceListVC alloc] init];
-            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
-            
-            [((UINavigationController *)self.window.rootViewController) presentViewController:navi animated:YES completion:nil];
-        }];
-        
         if ([DataBaseServer checkLovedVoice:model]) {
             [_alertView addTitle:@"取消喜欢" block:^(id result) {
                 [DataBaseServer deleteLovedVoice:model];
@@ -152,6 +134,24 @@
                 [DataBaseServer insertLovedVoice:model];
             }];
         }
+        
+        [_alertView addTitle:@"播放列表" block:^(id result) {
+            @strongify(self);
+            PlayVoiceListVC *vc = [[PlayVoiceListVC alloc] init];
+            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
+            
+            [((UINavigationController *)self.window.rootViewController) presentViewController:navi animated:YES completion:nil];
+        }];
+        
+        [_alertView addTitle:@"播放上一首" block:^(id result) {
+            @strongify(self);
+            [self playPreMusic];
+        }];
+        
+        [_alertView addTitle:@"播放下一首" block:^(id result) {
+            @strongify(self);
+            [self playNextMusic];
+        }];
         
         [_alertView show];
     }
@@ -194,12 +194,12 @@
 
 #pragma mark - 播放
 - (void)playWithModel:(VoiceDetailModel *)model andModels:(NSArray *)models {
-    if (!model || !model.playUrl64 || model == _model) {
+    if (!model || !model.title || model == _model) {
         return;
     }
     
     _model = model;
-    [self.audioPlayer playURL:model.playUrl64 withQueueItemID:model];
+    [self.audioPlayer playURL:model.playRealUrl withQueueItemID:model];
     
     if (!models) {
         [DataBaseServer deletePlayVoiceList];

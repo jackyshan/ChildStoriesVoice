@@ -383,6 +383,7 @@
 		6D3AD2151C22B6380036EFD9 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				6DF531BD1C33BA1A00594D48 /* Search */,
 				6D07010A1C3258D300D34E95 /* Download */,
 				6D0700F91C2D3BFD00D34E95 /* Settings */,
 				6D3AD2691C2A8FAB0036EFD9 /* Play */,
@@ -539,6 +540,13 @@
 				6DCA22931C22A764001F62A9 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6DF531BD1C33BA1A00594D48 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

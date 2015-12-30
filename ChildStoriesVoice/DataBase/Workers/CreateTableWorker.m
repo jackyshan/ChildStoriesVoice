@@ -31,10 +31,11 @@
              updatedAt
              
              progress              播放进度
+             
+             finished          下载完成
              **/
-			NSString *commandText = @"CREATE TABLE IF NOT EXISTS play_voice_list(id INTEGER PRIMARY KEY, trackId TEXT, title TEXT, coverSmall TEXT, coverLarge TEXT, playtimes TEXT, playUrl32 TEXT, playUrl64 TEXT, mp3size_32 TEXT, mp3size_64 TEXT, albumId TEXT, albumUid TEXT, duration TEXT, createdAt TEXT, updatedAt TEXT, progress TEXT,tag TEXT)";
+			NSString *commandText = @"CREATE TABLE IF NOT EXISTS play_voice_list(id INTEGER PRIMARY KEY, trackId TEXT, title TEXT, coverSmall TEXT, coverLarge TEXT, playtimes TEXT, playUrl32 TEXT, playUrl64 TEXT, mp3size_32 TEXT, mp3size_64 TEXT, albumId TEXT, albumUid TEXT, duration TEXT, createdAt TEXT, updatedAt TEXT, progress TEXT, finished TEXT, tag TEXT)";
 			[dbHelper executeUpdate:commandText];
-            
             
             /**
              创建最近列表,表play_voice_lasted结构如下:

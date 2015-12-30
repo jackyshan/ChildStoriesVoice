@@ -34,8 +34,8 @@
                 [dbHelper executeUpdate:commandText, model.progress, model.trackId];
             }
             else {
-                commandText = @"INSERT INTO play_voice_list (trackId, title, coverSmall, coverLarge, playtimes, playUrl32, playUrl64, mp3size_32, mp3size_64, albumId, albumUid, duration, createdAt, updatedAt, progress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                [dbHelper executeUpdate:commandText, model.trackId, model.title, model.coverSmall, model.coverLarge, model.playtimes, model.playUrl32, model.playUrl64, model.mp3size_32, model.mp3size_64, model.albumId, model.albumUid, model.duration, model.createdAt, model.updatedAt, model.progress];
+                commandText = @"INSERT INTO play_voice_list (trackId, title, coverSmall, coverLarge, playtimes, playUrl32, playUrl64, mp3size_32, mp3size_64, albumId, albumUid, duration, createdAt, updatedAt, progress, finished) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                [dbHelper executeUpdate:commandText, model.trackId, model.title, model.coverSmall, model.coverLarge, model.playtimes, model.playUrl32, model.playUrl64, model.mp3size_32, model.mp3size_64, model.albumId, model.albumUid, model.duration, model.createdAt, model.updatedAt, model.progress, @(model.finished).stringValue];
             }
         };
     }
