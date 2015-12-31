@@ -23,4 +23,17 @@
 //设置列表
 + (NSArray *)getSettingMenuModels;
 
+//IAP
++ (void)buyIapProduct;
++ (void)restoreIapProduct;
+
+//goto appstore url
++ (void)gotoAppStore;
+
+//clear disk cache
++ (void)clearDiskCache;
+
+//report
++ (void)reportBugForEmail;
+
 @end

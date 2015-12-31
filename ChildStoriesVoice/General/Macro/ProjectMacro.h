@@ -38,6 +38,8 @@
 //google ads
 #define ADUNITID @"ca-app-pub-1989497899333594/9510635863"
 
+#define kAppTitle @"儿童故事音汇"
+
 //app store api
 #define kAppStoreUrl @"https://itunes.apple.com/app/mei-zi-fu-li-tu/id1063741604"
 

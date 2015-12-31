@@ -10,8 +10,19 @@
 #import "ProjectMacro.h"
 #import "CommonHelper.h"
 #import "BlockAlertView.h"
-#import "Macro.h"
+#import "JackyBusiness.pch"
 #import "SettingModel.h"
+#import "MBProgressHUD.h"
+#import "IAPHelper.h"
+#import <MessageUI/MFMailComposeViewController.h>
+#import <MessageUI/MessageUI.h>
+#import "AppDelegate.h"
+
+#define windowView [UIApplication sharedApplication].keyWindow
+
+@interface ProjectHelper()<MFMailComposeViewControllerDelegate>
+
+@end
 
 @implementation ProjectHelper
 
@@ -81,6 +92,80 @@ static BlockAlertView *ads = nil;
                      @{@"name":@"设置", @"list":setting}];
     
     return [SettingModel arrayOfModelsFromDictionaries:arr];
+}
+
+//IAP
++ (void)buyIapProduct {
+    if ([ProjectHelper getIAPVIP]) {
+        [CommonHelper showMessage:@"已是VIP"];
+        return;
+    }
+    
+    [MBProgressHUD showHUDAddedTo:windowView animated:YES];
+    [[IAPHelper sharedHelper] buyIapProduct:IAPIdentifier iapBlock:^(id result, BOOL succ) {
+        [MBProgressHUD hideAllHUDsForView:windowView animated:YES];
+        if (succ) {
+            [ProjectHelper setIAPVIP];
+        }
+        else {
+            [CommonHelper showMessage:nil message:result];
+        }
+    }];
+}
++ (void)restoreIapProduct {
+    if ([ProjectHelper getIAPVIP]) {
+        [CommonHelper showMessage:@"已是VIP"];
+        return;
+    }
+    
+    [MBProgressHUD showHUDAddedTo:windowView animated:YES];
+    [[IAPHelper sharedHelper] restoreProductIdentifier:IAPIdentifier iapBlock:^(id result, BOOL succ) {
+        [MBProgressHUD hideAllHUDsForView:windowView animated:YES];
+        if (succ) {
+            [ProjectHelper setIAPVIP];
+        }
+        else {
+            [CommonHelper showMessage:nil message:result];
+        }
+    }];
+}
+
+//goto appstore url
++ (void)gotoAppStore {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppStoreUrl]];
+}
+
+//clear disk cache
++ (void)clearDiskCache {
+    [MBProgressHUD showHUDAddedTo:windowView animated:YES];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        [MBProgressHUD hideAllHUDsForView:windowView animated:YES];
+        [CommonHelper showMessage:@"清理完成"];
+    }];
+}
+
+//report
++ (void)reportBugForEmail {
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    picker.view.tintColor = COLOR_FFFFFF;
+    [picker setSubject:[NSString stringWithFormat:@"%@App的bug反馈", kAppTitle]];
+    
+    [picker setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n\n版本:%@\niPhone:%@", XcodeAppVersion, kiOSVersion] isHTML:NO];
+    [picker setToRecipients:@[[NSString stringWithFormat:@"%@App邮箱 <bugsformyapps@163.com>", kAppTitle]]];
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [(UINavigationController *)delegate.window.rootViewController presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error {
+    if (error) {
+        NSLog(@"邮件分享错误：%@", error.localizedDescription);
+    }
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [(UINavigationController *)delegate.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

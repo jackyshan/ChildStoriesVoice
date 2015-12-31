@@ -285,6 +285,8 @@
     
     queueItemId.playing = YES;
     _model = queueItemId;
+    
+    [self configNowPlayingInfoCenter];
 }
 /// Raised when an item has finished buffering (may or may not be the currently playing item)
 /// This event may be raised multiple times for the same item if seek is invoked on the player

@@ -80,6 +80,7 @@
         [_collectionView addFooterWithCallback:^{
             @strongify(self)
             [self.collectionView endFooterRefresh];
+            self->_pageId++;
             [self loadingData];
         }];
     }
@@ -126,7 +127,7 @@
     }];
     
     homeAlbums.path = @"948/common_tag/6/童话故事";
-    [homeAlbums startRequestWithParams:@{@"page_id":@(_pageId++)}];
+    [homeAlbums startRequestWithParams:@{@"page_id":@(_pageId)}];
 }
 
 #pragma mark - UICollectionViewDataSource

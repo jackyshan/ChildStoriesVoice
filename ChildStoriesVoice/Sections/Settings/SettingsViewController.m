@@ -14,6 +14,7 @@
 #import "DownloadVoiceListVC.h"
 #import "LovedVoiceListVC.h"
 #import "CollectAlbumListVC.h"
+#import "IAPHelper.h"
 
 @interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate> {
     NSArray *_dataArr;
@@ -120,6 +121,21 @@
     else if (model.type == 4) {
         CollectAlbumListVC *vc = [[CollectAlbumListVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (model.type == 5) {
+        [ProjectHelper buyIapProduct];
+    }
+    else if (model.type == 6) {
+        [ProjectHelper restoreIapProduct];
+    }
+    else if (model.type == 7) {
+        [ProjectHelper gotoAppStore];
+    }
+    else if (model.type == 8) {
+        [ProjectHelper clearDiskCache];
+    }
+    else if (model.type == 9) {
+        [ProjectHelper reportBugForEmail];
     }
 }
 
