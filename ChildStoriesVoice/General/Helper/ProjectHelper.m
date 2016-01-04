@@ -26,6 +26,16 @@
 
 @implementation ProjectHelper
 
++ (instancetype)shareInstance
+{
+    static id instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[[self class] alloc] init];
+    });
+    return instance;
+}
+
 + (BOOL)getIAPVIP {
     NSNumber *VIP = [[NSUserDefaults standardUserDefaults] objectForKey:IAPIdentifier];
     
@@ -80,7 +90,7 @@ static BlockAlertView *ads = nil;
                        @{@"img":@"", @"title":@"下载音乐", @"detailTitle":@"", @"type":@"2"},
                        @{@"img":@"", @"title":@"喜欢的音乐", @"detailTitle":@"", @"type":@"3"},
                        @{@"img":@"", @"title":@"收藏专辑", @"detailTitle":@"", @"type":@"4"}];
-    NSArray *vip = @[@{@"img":@"", @"title":@"升级VIP", @"detailTitle":@"", @"type":@"5"},
+    NSArray *vip = @[@{@"img":@"", @"title":@"升级VIP", @"detailTitle":@"终身会员", @"type":@"5"},
                      @{@"img":@"", @"title":@"恢复VIP", @"detailTitle":@"", @"type":@"6"}];
     NSArray *setting = @[@{@"img":@"", @"title":@"评价", @"detailTitle":@"", @"type":@"7"},
                          @{@"img":@"", @"title":@"清除缓存", @"detailTitle":@"", @"type":@"8"},
@@ -145,10 +155,10 @@ static BlockAlertView *ads = nil;
 }
 
 //report
-+ (void)reportBugForEmail {
+- (void)reportBugForEmail {
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
     picker.mailComposeDelegate = self;
-    picker.view.tintColor = COLOR_FFFFFF;
+    picker.view.tintColor = COLOR_B1;
     [picker setSubject:[NSString stringWithFormat:@"%@App的bug反馈", kAppTitle]];
     
     [picker setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n\n版本:%@\niPhone:%@", XcodeAppVersion, kiOSVersion] isHTML:NO];

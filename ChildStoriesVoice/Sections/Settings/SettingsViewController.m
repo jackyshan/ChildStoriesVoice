@@ -135,7 +135,7 @@
         [ProjectHelper clearDiskCache];
     }
     else if (model.type == 9) {
-        [ProjectHelper reportBugForEmail];
+        [[ProjectHelper shareInstance] reportBugForEmail];
     }
 }
 

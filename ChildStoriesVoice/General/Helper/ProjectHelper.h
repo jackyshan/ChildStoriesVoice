@@ -12,6 +12,8 @@
 
 @interface ProjectHelper : NSObject
 
++ (instancetype)shareInstance;
+
 //vip设置
 + (void)setIAPVIP;
 + (BOOL)getIAPVIP;
@@ -34,6 +36,6 @@
 + (void)clearDiskCache;
 
 //report
-+ (void)reportBugForEmail;
+- (void)reportBugForEmail;
 
 @end
