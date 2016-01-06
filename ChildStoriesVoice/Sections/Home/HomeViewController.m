@@ -12,6 +12,7 @@
 #import "AlbumVoiceModel.h"
 #import "AlbumDetailListVC.h"
 #import "SettingsViewController.h"
+#import "SearchViewController.h"
 
 #define HOME_COLLECTION_CELL @"homeCollectionCell"
 
@@ -58,7 +59,10 @@
 }
 
 
-- (void)leftBarbuttonClick:(UIBarButtonItem *)item {}
+- (void)leftBarbuttonClick:(UIBarButtonItem *)item {
+    SearchViewController *vc = [[SearchViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void)rightBarbuttonClick:(UIBarButtonItem *)item {
     SettingsViewController *vc = [[SettingsViewController alloc] init];
