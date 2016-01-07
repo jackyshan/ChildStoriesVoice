@@ -140,4 +140,20 @@ static NSString *databaseName = @"db.sqlite3";
     [self _addToEngine:worker];
 }
 
+//搜索历史
++ (void)insertSearchHistory:(SearchModel *)model {
+    SearchHistoryWorker *worker = [[SearchHistoryWorker alloc] initInsertSearchHistory:model];
+    [self _addToEngine:worker];
+}
++ (NSArray *)selectSearchHistoryList {
+    SearchHistoryWorker *worker = [[SearchHistoryWorker alloc] initSelectSearchHistoryList];
+    [self _addToEngine:worker];
+    
+    return [worker onResult][@"result"];
+}
++ (void)deleteSearchHistoryList {
+    SearchHistoryWorker *worker = [[SearchHistoryWorker alloc] initDeleteSearchHistoryList];
+    [self _addToEngine:worker];
+}
+
 @end

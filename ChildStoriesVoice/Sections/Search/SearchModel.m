@@ -10,13 +10,9 @@
 
 @implementation SearchModel
 
-@end
-
-@implementation SearchHistoryModel
-
-@end
-
-@implementation SearchResultModel
+- (NSString *)update_time {
+    return @([NSDate date].timeIntervalSince1970).stringValue;
+}
 
 + (JSONKeyMapper*)keyMapper {
     return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"albumId"}];

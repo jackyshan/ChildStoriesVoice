@@ -118,6 +118,15 @@
              **/
             commandText = @"CREATE TABLE IF NOT EXISTS play_voice_albums(id INTEGER PRIMARY KEY, albumId TEXT, title TEXT, coverSmall TEXT, coverLarge TEXT, updatedAt TEXT, finished TEXT, plays_counts TEXT, tracks_counts TEXT, selected TEXT, tag TEXT)";
             [dbHelper executeUpdate:commandText];
+            
+            /**
+             创建收藏的专辑列表,表search_history结构如下:
+             albumId
+             title                   title
+             update_time             更新search
+             **/
+            commandText = @"CREATE TABLE IF NOT EXISTS search_history(id INTEGER PRIMARY KEY, albumId TEXT, title TEXT, update_time TEXT, tag TEXT)";
+            [dbHelper executeUpdate:commandText];
         };
     }
     

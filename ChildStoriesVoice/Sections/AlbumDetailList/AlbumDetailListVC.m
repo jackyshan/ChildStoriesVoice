@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSMutableArray *mArr;
 
 @property (nonatomic, strong) BlockAlertView *alertView;
+@property (nonatomic, strong) MBProgressHUD *hub;
 
 @end
 
@@ -55,6 +56,11 @@
     [self loadingData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
+
 - (void)addSubviews {
     [self.view addSubview:self.albumImageView];
     [self.albumImageView addSubview:self.albumInfo];
@@ -65,6 +71,7 @@
     
     [self.view addSubview:self.naviLeftArrow];
     [self.view addSubview:self.statusBarView];
+    [self.view addSubview:self.hub];
 }
 
 - (UIButton *)naviLeftArrow {
@@ -95,16 +102,16 @@
     if (!_albumImageView) {
         _albumImageView = [[UIImageView alloc] init];
         _albumImageView.userInteractionEnabled = YES;
-        @weakify(self)
-        [_albumImageView sd_setImageWithURL:[NSURL URLWithString:_model.coverLarge] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            @strongify(self)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.statusBarView.backgroundColor = [ColorHelper mostColor:image];
-                }];
-            });
-        }];
     }
+    @weakify(self)
+    [_albumImageView sd_setImageWithURL:[NSURL URLWithString:_model.coverLarge] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.25 animations:^{
+                self.statusBarView.backgroundColor = [ColorHelper mostColor:image];
+            }];
+        });
+    }];
     
     return _albumImageView;
 }
@@ -113,18 +120,18 @@
     if (!_albumInfo) {
         _albumInfo = [InputHelper createLabelWithFrame:CGRectZero title:nil textColor:COLOR_FFFFFF bgColor:COLOR_CLEAR fontSize:14.f textAlignment:NSTextAlignmentLeft addToView:_albumImageView bBold:NO];
         _albumInfo.numberOfLines = 0;
-        
-        NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] init];
-        NSAttributedString *str = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", _model.title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14.f], NSFontAttributeName, COLOR_FFFFFF, NSForegroundColorAttributeName, nil]];
-        [aString appendAttributedString:str];
-        [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ plays\n", _model.plays_counts] font:12.f color:COLOR_FFFFFF]];
-        [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ voices", _model.tracks_counts] font:12.f color:COLOR_FFFFFF]];
-        
-        NSParagraphStyle *para = [InputHelper paraGraphStyle:4.f align:NSTextAlignmentLeft];
-        [aString addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, aString.length)];
-        
-        _albumInfo.attributedText = aString;
     }
+    
+    NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] init];
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", _model.title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14.f], NSFontAttributeName, COLOR_FFFFFF, NSForegroundColorAttributeName, nil]];
+    [aString appendAttributedString:str];
+    [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ plays\n", _model.plays_counts?:@"0"] font:12.f color:COLOR_FFFFFF]];
+    [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ voices", _model.tracks_counts?:@"0"] font:12.f color:COLOR_FFFFFF]];
+    
+    NSParagraphStyle *para = [InputHelper paraGraphStyle:4.f align:NSTextAlignmentLeft];
+    [aString addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, aString.length)];
+    
+    _albumInfo.attributedText = aString;
     
     return _albumInfo;
 }
@@ -195,6 +202,15 @@
     return _tableView;
 }
 
+- (MBProgressHUD *)hub {
+    if (!_hub) {
+        _hub = [[MBProgressHUD alloc] initWithView:self.view];
+        _hub.labelText = @"正在加载";
+    }
+    
+    return _hub;
+}
+
 - (void)defineLayout {
     [_albumImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.top.width.equalTo(self.view);
@@ -242,11 +258,23 @@
 - (void)loadingData {
     [super loadingData];
     
+    [_hub show:YES];
     NWAlbumDetails *albumDetails = [[NWAlbumDetails alloc] init];
-    [albumDetails setCompletion:^(NSArray *arr, BOOL succ) {
+    [albumDetails setCompletion:^(NSDictionary *dic, BOOL succ) {
+        
+        [_hub hide:YES];
         if (succ) {
+            
+            NSArray *arr = [VoiceDetailModel arrayOfModelsFromDictionaries:dic[@"tracks"][@"list"]];
+            
             if (arr.count == 0) {
                 [CommonHelper showMessage:@"没有更多了"];return;
+            }
+            
+            if (!_model.coverLarge) {
+                _model = [[AlbumVoiceModel alloc] initWithDictionary:dic[@"album"] error:nil];
+                [self albumImageView];
+                [self albumInfo];
             }
             
             [self.mArr addObjectsFromArray:arr];

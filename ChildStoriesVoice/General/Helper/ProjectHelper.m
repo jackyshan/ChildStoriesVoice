@@ -17,6 +17,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import <MessageUI/MessageUI.h>
 #import "AppDelegate.h"
+#import "SearchModel.h"
 
 #define windowView [UIApplication sharedApplication].keyWindow
 
@@ -95,7 +96,8 @@ static BlockAlertView *ads = nil;
     NSArray *setting = @[@{@"img":@"", @"title":@"评价", @"detailTitle":@"", @"type":@"7"},
                          @{@"img":@"", @"title":@"清除缓存", @"detailTitle":@"", @"type":@"8"},
                          @{@"img":@"", @"title":@"反馈", @"detailTitle":@"邮件", @"type":@"9"},
-                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"10"}];
+//                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"10"}
+                         ];
     
     NSArray *arr = @[@{@"name":@"音乐", @"list":music},
                      @{@"name":@"vip", @"list":vip},
@@ -176,6 +178,26 @@ static BlockAlertView *ads = nil;
     
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [(UINavigationController *)delegate.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+//推荐搜索
++ (NSArray *)getSearchRecommend {
+    NSArray *arr = @[@{@"title":@"全部"},
+                     @{@"title":@"儿歌大全"},
+                     @{@"title":@"睡前故事"},
+                     @{@"title":@"胎教母婴"},
+                     @{@"title":@"童话故事"},
+                     @{@"title":@"儿童读物"},
+                     @{@"title":@"儿童学习"},
+                     @{@"title":@"儿童英语"},
+                     @{@"title":@"儿童科普"},
+                     @{@"title":@"儿童教育"},
+                     @{@"title":@"影视动漫"},
+                     @{@"title":@"绘本故事"},
+                     @{@"title":@"宝贝SHOW"},
+                     @{@"title":@"中小学教材"}];
+    
+    return [SearchModel arrayOfModelsFromDictionaries:arr];
 }
 
 @end

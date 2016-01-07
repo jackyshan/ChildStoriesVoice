@@ -10,9 +10,15 @@
 #import "ColorHelper.h"
 #import "InputHelper.h"
 #import "UIView+FrameHelper.h"
+#import "ProjectHelper.h"
+#import "SearchModel.h"
+
+#define kBtnTag 9999
 
 @interface SearchHeaderView()<UIScrollViewDelegate> {
     UIPageControl *_pageControl;
+    
+    NSArray *_dataArr;
 }
 
 @end
@@ -29,14 +35,17 @@
         scrollView.pagingEnabled = YES;
         scrollView.delegate = self;
         scrollView.showsHorizontalScrollIndicator = NO;
+        scrollView.scrollsToTop = NO;
         [self addSubview:scrollView];
         
-        NSInteger numbers = 31;
+        _dataArr = [ProjectHelper getSearchRecommend];
         
         CGFloat x = 10, y = 0, width = 96, height = 29;
         NSInteger idx = 1;
-        for (int i = 0; i < numbers; i ++) {
-            UIButton *searchBtn = [InputHelper createButtonWithTitle:@"了凡发型定制" textColor:[ColorHelper colorWithHexString:@"#666666"] bgColor:[UIColor whiteColor] bgColorHigh:[UIColor clearColor] fontSize:12.f target:self action:nil tag:i addToView:scrollView frame:CGRectMake(x, y, width, height) supportAotuLayout:NO];
+        for (int i = 0; i < _dataArr.count; i ++) {
+            SearchModel *model = _dataArr[i];
+            UIButton *searchBtn = [InputHelper createButtonWithTitle:model.title textColor:[ColorHelper colorWithHexString:@"#666666"] bgColor:[UIColor whiteColor] bgColorHigh:[UIColor clearColor] fontSize:12.f target:self action:nil tag:i+kBtnTag addToView:scrollView frame:CGRectMake(x, y, width, height) supportAotuLayout:NO];
+            [searchBtn addTarget:self action:@selector(tapSearch:) forControlEvents:UIControlEventTouchUpInside];
             searchBtn.clipsToBounds = YES;
             searchBtn.layer.cornerRadius = 3.f;
             
@@ -69,6 +78,16 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _pageControl.currentPage = scrollView.contentOffset.x / scrollView.width;
+}
+
+- (void)tapSearch:(UIButton *)sender {
+    NSInteger idx = sender.tag - kBtnTag;
+    
+    SearchModel *model = _dataArr[idx];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(goToSearchVC:)]) {
+        [self.delegate goToSearchVC:model];
+    }
 }
 
 @end

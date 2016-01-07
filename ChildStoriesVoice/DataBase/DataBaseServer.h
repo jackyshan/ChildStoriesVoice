@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UpdateVoiceWorker.h"
+#import "SearchHistoryWorker.h"
 
 @interface DataBaseServer : NSObject
 
@@ -42,5 +43,10 @@
 + (NSArray *)selectCollectAlbumList;
 + (BOOL)checkCollectAlbum:(AlbumVoiceModel *)model;
 + (void)deleteCollectAlbum:(AlbumVoiceModel *)model;
+
+//搜索历史
++ (void)insertSearchHistory:(SearchModel *)model;
++ (NSArray *)selectSearchHistoryList;
++ (void)deleteSearchHistoryList;
 
 @end

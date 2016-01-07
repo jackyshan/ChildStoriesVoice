@@ -38,4 +38,7 @@
 //report
 - (void)reportBugForEmail;
 
+//推荐搜索
++ (NSArray *)getSearchRecommend;
+
 @end

@@ -28,7 +28,7 @@
     [backView addSubview:iconImgV];
     self.iconImgV = iconImgV;
     
-    UILabel *titleLb = [InputHelper createLabelWithFrame:CGRectMake(35, 15, 240, 14) title:@"哗啦啦" textColor:[ColorHelper colorWithHexString:@"#535353"] bgColor:COLOR_CLEAR fontSize:14.f textAlignment:NSTextAlignmentLeft addToView:backView bBold:NO];
+    UILabel *titleLb = [InputHelper createLabelWithFrame:CGRectMake(35, 12, 240, 17) title:nil textColor:[ColorHelper colorWithHexString:@"#535353"] bgColor:COLOR_CLEAR fontSize:14.f textAlignment:NSTextAlignmentLeft addToView:backView bBold:NO];
     self.titleLb = titleLb;
     
     UIImageView *arrowImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_cell_rightArrow"]];
@@ -42,8 +42,8 @@
 
 - (void)defineLayout {}
 
-- (void)updateWithModel:(SearchHistoryModel *)model {
-    
+- (void)updateWithModel:(SearchModel *)model {
+    _titleLb.text = model.title;
 }
 
 @end

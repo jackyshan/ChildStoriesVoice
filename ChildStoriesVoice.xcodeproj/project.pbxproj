@@ -66,6 +66,9 @@
 		6DF531D71C3D001600594D48 /* SearchHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF531D61C3D001600594D48 /* SearchHistoryCell.m */; };
 		6DF531DA1C3D12BA00594D48 /* SearchTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF531D91C3D12BA00594D48 /* SearchTextField.m */; };
 		6DF531DF1C3D23D100594D48 /* NWSuggestSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF531DE1C3D23D100594D48 /* NWSuggestSearch.m */; };
+		6DF531E71C3E46DD00594D48 /* SearchHistoryWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF531E61C3E46DD00594D48 /* SearchHistoryWorker.m */; };
+		6DF531EC1C3E578800594D48 /* ClearHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF531EB1C3E578800594D48 /* ClearHistoryCell.m */; };
+		6DF531EF1C3E65E800594D48 /* SearchAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF531EE1C3E65E800594D48 /* SearchAlbumsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +209,12 @@
 		6DF531D91C3D12BA00594D48 /* SearchTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTextField.m; sourceTree = "<group>"; };
 		6DF531DD1C3D23D100594D48 /* NWSuggestSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWSuggestSearch.h; sourceTree = "<group>"; };
 		6DF531DE1C3D23D100594D48 /* NWSuggestSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWSuggestSearch.m; sourceTree = "<group>"; };
+		6DF531E51C3E46DD00594D48 /* SearchHistoryWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryWorker.h; sourceTree = "<group>"; };
+		6DF531E61C3E46DD00594D48 /* SearchHistoryWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryWorker.m; sourceTree = "<group>"; };
+		6DF531EA1C3E578800594D48 /* ClearHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearHistoryCell.h; sourceTree = "<group>"; };
+		6DF531EB1C3E578800594D48 /* ClearHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearHistoryCell.m; sourceTree = "<group>"; };
+		6DF531ED1C3E65E800594D48 /* SearchAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAlbumsViewController.h; sourceTree = "<group>"; };
+		6DF531EE1C3E65E800594D48 /* SearchAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAlbumsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -439,6 +448,8 @@
 				6D3AD21C1C22B7D60036EFD9 /* CreateTableWorker.m */,
 				184608851C2EB131006F0B55 /* UpdateVoiceWorker.h */,
 				184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */,
+				6DF531E51C3E46DD00594D48 /* SearchHistoryWorker.h */,
+				6DF531E61C3E46DD00594D48 /* SearchHistoryWorker.m */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -450,6 +461,8 @@
 				6D3AD2211C22B8700036EFD9 /* HomeViewController.m */,
 				6D3AD2441C23B9150036EFD9 /* HomeCollectionCell.h */,
 				6D3AD2451C23B9150036EFD9 /* HomeCollectionCell.m */,
+				6DF531ED1C3E65E800594D48 /* SearchAlbumsViewController.h */,
+				6DF531EE1C3E65E800594D48 /* SearchAlbumsViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -580,6 +593,8 @@
 				6DF531D91C3D12BA00594D48 /* SearchTextField.m */,
 				6DF531DD1C3D23D100594D48 /* NWSuggestSearch.h */,
 				6DF531DE1C3D23D100594D48 /* NWSuggestSearch.m */,
+				6DF531EA1C3E578800594D48 /* ClearHistoryCell.h */,
+				6DF531EB1C3E578800594D48 /* ClearHistoryCell.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -708,6 +723,7 @@
 				6DCA22971C22A764001F62A9 /* AppDelegate.m in Sources */,
 				6D3AD2561C2406D60036EFD9 /* VoiceDetailModel.m in Sources */,
 				6D3AD20A1C22B5DD0036EFD9 /* BaseTableViewCell.m in Sources */,
+				6DF531E71C3E46DD00594D48 /* SearchHistoryWorker.m in Sources */,
 				6D3AD28D1C2AA6850036EFD9 /* STKLocalFileDataSource.m in Sources */,
 				6D3AD28C1C2AA6850036EFD9 /* STKHTTPDataSource.m in Sources */,
 				1846088F1C2FB686006F0B55 /* PlayVoiceListVC.m in Sources */,
@@ -720,6 +736,7 @@
 				6D3AD28A1C2AA6850036EFD9 /* STKDataSource.m in Sources */,
 				6DF531CB1C3CC0D100594D48 /* SearchResultCell.m in Sources */,
 				6DF531DA1C3D12BA00594D48 /* SearchTextField.m in Sources */,
+				6DF531EF1C3E65E800594D48 /* SearchAlbumsViewController.m in Sources */,
 				6D3AD2251C22BB760036EFD9 /* VersionUpdateModel.m in Sources */,
 				6D3AD2461C23B9150036EFD9 /* HomeCollectionCell.m in Sources */,
 				6D3AD2091C22B5DD0036EFD9 /* BaseNetwork.m in Sources */,
@@ -738,6 +755,7 @@
 				6DF531CE1C3CC48E00594D48 /* SearchHeaderView.m in Sources */,
 				6D3AD2871C2AA6850036EFD9 /* STKAudioPlayer.m in Sources */,
 				6D3AD2891C2AA6850036EFD9 /* STKCoreFoundationDataSource.m in Sources */,
+				6DF531EC1C3E578800594D48 /* ClearHistoryCell.m in Sources */,
 				6D3AD2881C2AA6850036EFD9 /* STKAutoRecoveringHTTPDataSource.m in Sources */,
 				6DF531D71C3D001600594D48 /* SearchHistoryCell.m in Sources */,
 				184608921C2FB89A006F0B55 /* PlayVoiceLastedListVC.m in Sources */,

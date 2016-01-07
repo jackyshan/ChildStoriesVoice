@@ -18,8 +18,7 @@
 
 - (void)dealComplete:(id)result succ:(BOOL)succ {
     if (succ) {
-        NSArray *arr = [VoiceDetailModel arrayOfModelsFromDictionaries:result[@"tracks"][@"list"]];
-        self.completion(arr, YES);
+        self.completion(result, YES);
     }
     else {
         self.completion(result, NO);

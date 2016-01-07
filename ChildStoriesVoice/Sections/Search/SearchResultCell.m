@@ -19,7 +19,7 @@
 
 - (void)defineLayout {}
 
-- (void)updateWithModel:(SearchResultModel *)model {
+- (void)updateWithModel:(SearchModel *)model {
     self.titleLb.text = model.title;
 }
 

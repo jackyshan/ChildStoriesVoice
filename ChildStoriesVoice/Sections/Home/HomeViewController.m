@@ -20,9 +20,7 @@
 #define ITEM_HEIGH 180
 #define kHeaderHeight 20
 
-@interface HomeViewController ()<UICollectionViewDataSource, UICollectionViewDelegate> {
-    NSUInteger _pageId;
-}
+@interface HomeViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -33,12 +31,6 @@
 @end
 
 @implementation HomeViewController
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -114,6 +106,8 @@
     [_hub show:YES];
     NWHomeAlbums *homeAlbums = [[NWHomeAlbums alloc] init];
     [homeAlbums setCompletion:^(NSArray *arr, BOOL succ) {
+        
+        [_hub hide:YES];
         if (succ) {
             if (arr.count == 0) {
                 [CommonHelper showMessage:@"没有更多了"];return;
@@ -121,13 +115,11 @@
             
             [self.mArr addObjectsFromArray:arr];
             [_collectionView reloadData];
+            [_collectionView endFooterNoMore:20 arr:arr];
         }
         else {
             [self loadingFial];
         }
-        
-        [_hub hide:YES];
-        [_collectionView endFooterNoMore:20 arr:arr];
     }];
     
     homeAlbums.path = @"948/common_tag/6/童话故事";

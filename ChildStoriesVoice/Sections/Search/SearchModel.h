@@ -10,15 +10,8 @@
 
 @interface SearchModel : BaseModel
 
-@end
-
-@interface SearchHistoryModel : BaseModel
-
-@end
-
-@interface SearchResultModel : BaseModel
-
 @property (nonatomic, strong) NSString *albumId;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *update_time;
 
 @end

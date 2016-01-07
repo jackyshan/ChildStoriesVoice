@@ -8,6 +8,14 @@
 
 #import "BaseViewController.h"
 
-@interface HomeViewController : BaseViewController
+@interface HomeViewController : BaseViewController {
+    NSUInteger _pageId;
+}
+
+@property (nonatomic, readonly) UICollectionView *collectionView;
+
+@property (nonatomic, readonly) NSMutableArray *mArr;
+
+@property (nonatomic, readonly) MBProgressHUD *hub;
 
 @end
