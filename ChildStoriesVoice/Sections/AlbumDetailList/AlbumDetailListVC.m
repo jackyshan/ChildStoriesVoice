@@ -18,6 +18,7 @@
 
 @interface AlbumDetailListVC ()<UITableViewDataSource, UITableViewDelegate> {
     AlbumVoiceModel *_model;
+    NSUInteger _pageId;
 }
 
 @property (nonatomic, strong) UIImageView *albumImageView;
@@ -53,6 +54,7 @@
     self.navigationController.navigationBar.hidden = YES;
     
     self.mArr = [NSMutableArray array];
+    _pageId = 1;
     [self loadingData];
 }
 
@@ -123,10 +125,10 @@
     }
     
     NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] init];
-    NSAttributedString *str = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", _model.title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14.f], NSFontAttributeName, COLOR_FFFFFF, NSForegroundColorAttributeName, nil]];
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", _model.title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14.f], NSFontAttributeName, COLOR_9FA3A6, NSForegroundColorAttributeName, nil]];
     [aString appendAttributedString:str];
-    [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ plays\n", _model.plays_counts?:@"0"] font:12.f color:COLOR_FFFFFF]];
-    [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ voices", _model.tracks_counts?:@"0"] font:12.f color:COLOR_FFFFFF]];
+    [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ plays\n", _model.plays_counts?:@"0"] font:12.f color:COLOR_9FA3A6]];
+    [aString appendAttributedString:[InputHelper attributeStringWith:[NSString stringWithFormat:@"%@ voices", _model.tracks_counts?:@"0"] font:12.f color:COLOR_9FA3A6]];
     
     NSParagraphStyle *para = [InputHelper paraGraphStyle:4.f align:NSTextAlignmentLeft];
     [aString addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, aString.length)];
@@ -197,6 +199,14 @@
         _tableView.tableFooterView = [[UIView alloc] init];
         
         [_tableView registerClass:[VoiceDetailCell class] forCellReuseIdentifier:VOICE_DETAIL_CELL];
+        
+        @weakify(self)
+        [_tableView addFooterWithCallback:^{
+            @strongify(self)
+            [self.tableView endFooterRefresh];
+            self->_pageId++;
+            [self loadingData];
+        }];
     }
     
     return _tableView;
@@ -226,15 +236,15 @@
     
     [_collectBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-20);
-        make.right.mas_equalTo(-10);
-        make.width.height.mas_equalTo(22);
+        make.right.mas_equalTo(0);
+        make.width.height.mas_equalTo(50);
     }];
     
     [_orderBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-84);
-        make.right.mas_equalTo(-10);
-        make.width.mas_equalTo(26);
-        make.height.mas_equalTo(40);
+        make.right.mas_equalTo(0);
+        make.width.mas_equalTo(50);
+        make.height.mas_equalTo(50);
     }];
     
     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -271,6 +281,10 @@
                 [CommonHelper showMessage:@"没有更多了"];return;
             }
             
+            if (_pageId >= [dic[@"tracks"][@"maxPageId"] integerValue]) {
+                [self.tableView endFooterNoMore:0 arr:nil];
+            }
+            
             if (!_model.coverLarge) {
                 _model = [[AlbumVoiceModel alloc] initWithDictionary:dic[@"album"] error:nil];
                 [self albumImageView];
@@ -286,7 +300,7 @@
     }];
     
     albumDetails.path = [NSString stringWithFormat:@"948/albums/%@", _model.albumId];
-    [albumDetails startRequestWithParams:@{@"page_id":@(1),
+    [albumDetails startRequestWithParams:@{@"page_id":@(_pageId),
                                            @"isAsc":@(YES)}];
 }
 

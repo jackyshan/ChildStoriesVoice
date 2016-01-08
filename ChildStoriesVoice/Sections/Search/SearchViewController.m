@@ -52,7 +52,7 @@ NSString * const kClearHistoryCell = @"clearHistoryCell";
 }
 
 - (void)addSubviews {
-    UITextField *searchField = [[SearchTextField alloc] initWithFrame:CGRectMake(0, 0, 260, 34)];
+    UITextField *searchField = [[SearchTextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-80, 34)];
     searchField.clipsToBounds = YES;
     searchField.layer.cornerRadius = 3.f;
     searchField.returnKeyType = UIReturnKeySearch;
@@ -163,8 +163,10 @@ NSString * const kClearHistoryCell = @"clearHistoryCell";
         if (indexPath.row == _dataHistoryArr.count) {
             ClearHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:kClearHistoryCell];
             
+            @weakify(self)
             [cell setClearTap:^{
                 [DataBaseServer deleteSearchHistoryList];
+                @strongify(self)
                 [self.tableView reloadData];
             }];
             
@@ -225,8 +227,8 @@ NSString * const kClearHistoryCell = @"clearHistoryCell";
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [_searchField endEditing:YES];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [_searchField resignFirstResponder];
 }
 
 #pragma mark - UITextFieldDelegate

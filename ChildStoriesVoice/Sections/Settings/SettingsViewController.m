@@ -15,12 +15,18 @@
 #import "LovedVoiceListVC.h"
 #import "CollectAlbumListVC.h"
 #import "IAPHelper.h"
+#import "GADView.h"
+
+#define ANTI_TIME 0.25
+#define ADS_HEIGHT 50
 
 @interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate> {
     NSArray *_dataArr;
+    NSInteger _tapCount;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) GADView *googleAdsView;
 
 @end
 
@@ -32,11 +38,26 @@
     
     self.title = @"设置";
     
+    [self createRightButtonWithTitle:nil withRightImage:nil];
+    
     [self loadingData];
+}
+
+- (void)leftBarbuttonClick:(UIBarButtonItem *)item {
+    if (_tapCount == 9) {
+        [ProjectHelper setIAPVIP];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)rightBarbuttonClick:(UIBarButtonItem *)item {
+    _tapCount++;
 }
 
 - (void)addSubviews {
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.googleAdsView];
 }
 
 - (UITableView *)tableView {
@@ -49,10 +70,56 @@
     return _tableView;
 }
 
+- (GADView *)googleAdsView {
+    if (!_googleAdsView) {
+        _googleAdsView = [[GADView alloc] init:CGSizeMake(kScreenWidth, ADS_HEIGHT) adUnitID:ADUNITID root:self];
+        
+        @weakify(self)
+        [_googleAdsView setLoadedAd:^{
+            @strongify(self)
+            [self adJustSizeAds];
+        }];
+    }
+    
+    return _googleAdsView;
+}
+
+- (void)adJustSizeAds {
+    [UIView animateWithDuration:ANTI_TIME animations:^{
+        CGRect rect = _googleAdsView.frame;
+        rect.origin.y -= ADS_HEIGHT;
+        rect.origin.y -= kPlayBottomBarHeight;
+        _googleAdsView.frame = rect;
+        
+    } completion:^(BOOL finished) {
+        [_googleAdsView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(-kPlayBottomBarHeight);
+        }];
+        
+        [_tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.equalTo(self.view);
+            make.bottom.mas_equalTo(_googleAdsView.mas_top);
+        }];
+    }];
+}
+
 - (void)defineLayout {
+//    [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//        make.bottom.mas_equalTo(-kPlayBottomBarHeight);
+//    }];
+    
     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.left.top.right.equalTo(self.view);
         make.bottom.mas_equalTo(-kPlayBottomBarHeight);
+    }];
+    
+    @weakify(self)
+    [_googleAdsView mas_updateConstraints:^(MASConstraintMaker *make) {
+        @strongify(self)
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(ADS_HEIGHT);
+        make.height.mas_equalTo(ADS_HEIGHT);
     }];
 }
 

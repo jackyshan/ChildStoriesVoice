@@ -31,8 +31,17 @@
         
         UILabel *titleLb = [InputHelper createLabelWithFrame:CGRectMake(21, 8, 150, 14) title:@"推荐搜索" textColor:[ColorHelper colorWithHexString:@"#666666"] bgColor:[UIColor clearColor] fontSize:14.f textAlignment:NSTextAlignmentLeft addToView:self bBold:NO];
         
-        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,  titleLb.buttom + 8, self.width, 102)];
-        scrollView.pagingEnabled = YES;
+        UIScrollView *scrollView = nil;
+        if([[UIDevice currentDevice] userInterfaceIdiom ] == UIUserInterfaceIdiomPhone ) {
+            scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,  titleLb.buttom + 8, self.width, 102)];
+            scrollView.pagingEnabled = YES;
+            //IPhone设备
+            
+        }else{
+            scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,  titleLb.buttom + 8, self.width, 65)];
+            //ipad设备
+        }
+
         scrollView.delegate = self;
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.scrollsToTop = NO;
@@ -61,6 +70,9 @@
                     idx++;
                     y = 0;
                 }
+            }
+            else if (scrollView.height == 65.f) {
+                scrollView.contentSize = CGSizeMake(searchBtn.right+10, 0);
             }
         }
         

@@ -9,6 +9,7 @@
 #import "SearchAlbumsViewController.h"
 #import "SearchModel.h"
 #import "NWHomeAlbums.h"
+#import "AlbumVoiceModel.h"
 
 @interface SearchAlbumsViewController () {
     SearchModel *_model;
@@ -46,22 +47,27 @@
     
     [self.hub show:YES];
     NWHomeAlbums *homeAlbums = [[NWHomeAlbums alloc] init];
-    [homeAlbums setCompletion:^(NSArray *arr, BOOL succ) {
+    [homeAlbums setCompletion:^(NSDictionary *dic, BOOL succ) {
         
         [self.hub hide:YES];
         
         if (succ) {
+            
+            NSArray *arr = [AlbumVoiceModel arrayOfModelsFromDictionaries:dic[@"list"]];
             if (arr.count == 0) {
                 [CommonHelper showMessage:@"没有更多了"];return;
             }
             
             [self.mArr addObjectsFromArray:arr];
             [self.collectionView reloadData];
-            [self.collectionView endFooterNoMore:20 arr:arr];
+            
+            if (_pageId >= [dic[@"maxPageId"] integerValue]) {
+                [self.collectionView endFooterNoMore:0 arr:nil];
+            }
         }
     }];
     
-    homeAlbums.path = [NSString stringWithFormat:@"948/common_tag/6/%@", _model.title];
+    homeAlbums.path = [NSString stringWithFormat:@"948/common_tag/6/%@", [_model.title isEqualToString:@"全部"]?@"all":_model.title];
     [homeAlbums startRequestWithParams:@{@"page_id":@(_pageId)}];
 }
 

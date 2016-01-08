@@ -86,6 +86,7 @@ static BlockAlertView *ads = nil;
 }
 
 + (NSArray *)getSettingMenuModels {
+    NSString *cacheSize = [CommonHelper getFileSizeString:@([[SDImageCache sharedImageCache] getSize]).stringValue];
     NSArray *music = @[@{@"img":@"", @"title":@"播放列表", @"detailTitle":@"", @"type":@"0"},
                        @{@"img":@"", @"title":@"最近播放", @"detailTitle":@"", @"type":@"1"},
                        @{@"img":@"", @"title":@"下载音乐", @"detailTitle":@"", @"type":@"2"},
@@ -94,7 +95,7 @@ static BlockAlertView *ads = nil;
     NSArray *vip = @[@{@"img":@"", @"title":@"升级VIP", @"detailTitle":@"终身会员", @"type":@"5"},
                      @{@"img":@"", @"title":@"恢复VIP", @"detailTitle":@"", @"type":@"6"}];
     NSArray *setting = @[@{@"img":@"", @"title":@"评价", @"detailTitle":@"", @"type":@"7"},
-                         @{@"img":@"", @"title":@"清除缓存", @"detailTitle":@"", @"type":@"8"},
+                         @{@"img":@"", @"title":@"清除缓存", @"detailTitle":cacheSize, @"type":@"8"},
                          @{@"img":@"", @"title":@"反馈", @"detailTitle":@"邮件", @"type":@"9"},
 //                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"10"}
                          ];
@@ -107,22 +108,31 @@ static BlockAlertView *ads = nil;
 }
 
 //IAP
+static BlockAlertView *iapAlert = nil;
 + (void)buyIapProduct {
     if ([ProjectHelper getIAPVIP]) {
         [CommonHelper showMessage:@"已是VIP"];
         return;
     }
     
-    [MBProgressHUD showHUDAddedTo:windowView animated:YES];
-    [[IAPHelper sharedHelper] buyIapProduct:IAPIdentifier iapBlock:^(id result, BOOL succ) {
-        [MBProgressHUD hideAllHUDsForView:windowView animated:YES];
-        if (succ) {
-            [ProjectHelper setIAPVIP];
-        }
-        else {
-            [CommonHelper showMessage:nil message:result];
-        }
+    BlockAlertView *_alertView = [[BlockAlertView alloc] initWithTitle:@"升级VIP"];
+    _alertView.alertMessage = VIP_MESSAGE;
+    [_alertView addTitle:@"取消" block:nil];
+    [_alertView addTitle:@"确定" block:^(id result) {
+        [MBProgressHUD showHUDAddedTo:windowView animated:YES];
+        [[IAPHelper sharedHelper] buyIapProduct:IAPIdentifier iapBlock:^(id result, BOOL succ) {
+            [MBProgressHUD hideAllHUDsForView:windowView animated:YES];
+            if (succ) {
+                [ProjectHelper setIAPVIP];
+            }
+            else {
+                [CommonHelper showMessage:nil message:result];
+            }
+        }];
     }];
+    
+    [_alertView show];
+    iapAlert = _alertView;
 }
 + (void)restoreIapProduct {
     if ([ProjectHelper getIAPVIP]) {

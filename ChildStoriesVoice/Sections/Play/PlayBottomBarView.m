@@ -221,7 +221,7 @@
     NSIndexSet *indexSet =  [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, endIndex - startIndex)];
     NSArray *objecs = [models objectsAtIndexes:indexSet];
     [objecs enumerateObjectsUsingBlock:^(VoiceDetailModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.audioPlayer queueURL:obj.playUrl64 withQueueItemId:obj];
+        [self.audioPlayer queueURL:obj.playRealUrl withQueueItemId:obj];
     }];
 }
 
@@ -260,7 +260,7 @@
     //开机启动不操作数据库
 //    [DataBaseServer deletePlayVoiceList];
     [objecs enumerateObjectsUsingBlock:^(VoiceDetailModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.audioPlayer queueURL:obj.playUrl64 withQueueItemId:obj];
+        [self.audioPlayer queueURL:obj.playRealUrl withQueueItemId:obj];
 //        [DataBaseServer insertPlayVoice:obj];
     }];
     
@@ -299,6 +299,9 @@
     
     self.playBtn.selected = state == STKAudioPlayerStatePlaying ? YES : NO;
     VoiceDetailModel *model = (VoiceDetailModel *)audioPlayer.currentlyPlayingQueueItemId;
+    if (!model) {
+        return;
+    }
     model.progress = @(audioPlayer.progress).stringValue;
     [DataBaseServer insertPlayVoice:model];
 }
@@ -319,7 +322,7 @@
     @autoreleasepool {
         VoiceDetailModel *info = _model;
         
-        if (!info.playUrl64 || !info.title) {
+        if (!info.playRealUrl || !info.title) {
             return;
         }
         

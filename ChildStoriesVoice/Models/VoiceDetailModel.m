@@ -23,10 +23,6 @@
     return _savePath;
 }
 
-- (BOOL)finished {
-    return _downloadProgress == 1;
-}
-
 - (NSURL *)playRealUrl {
     if (self.finished) {
         return [NSURL fileURLWithPath:[CommonHelper getDownloadSavePath:self.savePath]];

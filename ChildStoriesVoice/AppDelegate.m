@@ -11,6 +11,7 @@
 #import "JackyBusiness.pch"
 #import "ProjectColor.h"
 #import "DataBaseServer.h"
+#import "AnalyticsServer.h"
 
 @interface AppDelegate ()
 
@@ -39,6 +40,9 @@
     //init bottomBar
     [self.window addSubview:self.playBottomBar];
     [self.playBottomBar appStartPlayModel];//开机播放
+    
+    //统计服务
+    [AnalyticsServer startServer];
     
     return YES;
 }

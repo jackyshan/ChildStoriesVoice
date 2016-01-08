@@ -18,7 +18,7 @@
 - (void)addSubviews {
     self.backgroundColor = [UIColor clearColor];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, self.width - 20, self.height)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth - 20, self.height)];
     backView.backgroundColor = [UIColor whiteColor];
     backView.clipsToBounds = YES;
     [self.contentView addSubview:backView];

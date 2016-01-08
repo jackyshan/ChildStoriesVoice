@@ -13,6 +13,8 @@
 #import "AlbumDetailListVC.h"
 #import "SettingsViewController.h"
 #import "SearchViewController.h"
+#import "ProjectHelper.h"
+#import "BlockAlertView.h"
 
 #define HOME_COLLECTION_CELL @"homeCollectionCell"
 
@@ -52,6 +54,12 @@
 
 
 - (void)leftBarbuttonClick:(UIBarButtonItem *)item {
+    if (![ProjectHelper getIAPVIP]) {
+        [ProjectHelper buyIapProduct];
+        
+        return;
+    }
+    
     SearchViewController *vc = [[SearchViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -85,7 +93,7 @@
 }
 
 - (void)defineLayout {
-    [_collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
         make.bottom.mas_equalTo(-kPlayBottomBarHeight);
     }];
@@ -105,17 +113,22 @@
     
     [_hub show:YES];
     NWHomeAlbums *homeAlbums = [[NWHomeAlbums alloc] init];
-    [homeAlbums setCompletion:^(NSArray *arr, BOOL succ) {
-        
+    [homeAlbums setCompletion:^(NSDictionary *dic, BOOL succ) {
         [_hub hide:YES];
+        
         if (succ) {
+            
+            NSArray *arr = [AlbumVoiceModel arrayOfModelsFromDictionaries:dic[@"list"]];
             if (arr.count == 0) {
                 [CommonHelper showMessage:@"没有更多了"];return;
             }
             
             [self.mArr addObjectsFromArray:arr];
-            [_collectionView reloadData];
-            [_collectionView endFooterNoMore:20 arr:arr];
+            [self.collectionView reloadData];
+            
+            if (_pageId >= [dic[@"maxPageId"] integerValue]) {
+                [self.collectionView endFooterNoMore:0 arr:nil];
+            }
         }
         else {
             [self loadingFial];
