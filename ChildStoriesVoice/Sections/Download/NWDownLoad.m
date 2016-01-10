@@ -26,7 +26,7 @@
     if (self = [super init]) {
         _model = model;
         _fileSavePath = model.savePath;
-        self.path = model.playUrl64.absoluteString;
+        _path = model.playUrl64.absoluteString;
         _flag = NWFlagNone;
         _fileDownload = YES;
         _breakResume = YES;
@@ -76,7 +76,7 @@
     [_timer invalidate];
     _timer = nil;
     _model.downIng = NO;
-    [MKNetworkEngine cancelOperationsContainingURLString:self.path];
+    [MKNetworkEngine cancelOperationsContainingURLString:_path];
 }
 
 @end

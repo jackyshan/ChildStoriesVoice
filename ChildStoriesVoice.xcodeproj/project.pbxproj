@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18120CFE1C414F8A000737B6 /* NWVersionAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 18120CFB1C414F8A000737B6 /* NWVersionAds.m */; };
+		18120CFF1C414F8A000737B6 /* NWVersionUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18120CFD1C414F8A000737B6 /* NWVersionUpdate.m */; };
 		184608871C2EB131006F0B55 /* UpdateVoiceWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */; };
 		1846088F1C2FB686006F0B55 /* PlayVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846088E1C2FB686006F0B55 /* PlayVoiceListVC.m */; };
 		184608921C2FB89A006F0B55 /* PlayVoiceLastedListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184608911C2FB89A006F0B55 /* PlayVoiceLastedListVC.m */; };
@@ -89,6 +91,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18120CFA1C414F8A000737B6 /* NWVersionAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWVersionAds.h; sourceTree = "<group>"; };
+		18120CFB1C414F8A000737B6 /* NWVersionAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWVersionAds.m; sourceTree = "<group>"; };
+		18120CFC1C414F8A000737B6 /* NWVersionUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWVersionUpdate.h; sourceTree = "<group>"; };
+		18120CFD1C414F8A000737B6 /* NWVersionUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWVersionUpdate.m; sourceTree = "<group>"; };
 		184608851C2EB131006F0B55 /* UpdateVoiceWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateVoiceWorker.h; sourceTree = "<group>"; };
 		184608861C2EB131006F0B55 /* UpdateVoiceWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateVoiceWorker.m; sourceTree = "<group>"; };
 		1846088D1C2FB686006F0B55 /* PlayVoiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVoiceListVC.h; sourceTree = "<group>"; };
@@ -402,6 +408,10 @@
 		6D3AD2141C22B6380036EFD9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				18120CFA1C414F8A000737B6 /* NWVersionAds.h */,
+				18120CFB1C414F8A000737B6 /* NWVersionAds.m */,
+				18120CFC1C414F8A000737B6 /* NWVersionUpdate.h */,
+				18120CFD1C414F8A000737B6 /* NWVersionUpdate.m */,
 				6D3AD24A1C23F3FE0036EFD9 /* NWHomeAlbums.h */,
 				6D3AD24B1C23F3FE0036EFD9 /* NWHomeAlbums.m */,
 				6D3AD24D1C24006E0036EFD9 /* NWAlbumDetails.h */,
@@ -726,6 +736,7 @@
 				6DF531E71C3E46DD00594D48 /* SearchHistoryWorker.m in Sources */,
 				6D3AD28D1C2AA6850036EFD9 /* STKLocalFileDataSource.m in Sources */,
 				6D3AD28C1C2AA6850036EFD9 /* STKHTTPDataSource.m in Sources */,
+				18120CFF1C414F8A000737B6 /* NWVersionUpdate.m in Sources */,
 				1846088F1C2FB686006F0B55 /* PlayVoiceListVC.m in Sources */,
 				6D3AD21D1C22B7D60036EFD9 /* DataBaseServer.m in Sources */,
 				6D3AD2221C22B8700036EFD9 /* HomeViewController.m in Sources */,
@@ -744,6 +755,7 @@
 				6D3AD2531C24024A0036EFD9 /* AlbumDetailListVC.m in Sources */,
 				6D3AD2071C22B5DD0036EFD9 /* BaseCollectionViewCell.m in Sources */,
 				6DF531D41C3CFFA600594D48 /* SearchModel.m in Sources */,
+				18120CFE1C414F8A000737B6 /* NWVersionAds.m in Sources */,
 				6D3AD24C1C23F3FE0036EFD9 /* NWHomeAlbums.m in Sources */,
 				6D3AD2061C22B5DD0036EFD9 /* AnalyticsServer.m in Sources */,
 				6D3AD2111C22B5DD0036EFD9 /* IAPHelper.m in Sources */,

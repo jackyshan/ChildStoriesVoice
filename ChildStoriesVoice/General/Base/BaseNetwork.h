@@ -27,20 +27,21 @@ typedef enum {
 } ServerType;
 
 @interface BaseNetwork : NSObject {
-  NSDictionary *_params;
-  NWFlag _flag;
-  CacheType _cacheType;
-  NSArray *_files;
-  BOOL _pureJSONData;
-
-  BOOL _fileDownload;
-  BOOL _breakResume;
-  NSString *_fileSavePath;
-
-  ServerType _serverType;
+    NSDictionary *_params;
+    NWFlag _flag;
+    CacheType _cacheType;
+    NSArray *_files;
+    BOOL _pureJSONData;
+    
+    BOOL _fileDownload;
+    BOOL _breakResume;
+    NSString *_fileSavePath;
+    
+    ServerType _serverType;
+ 
+    @public
+    NSString *_path;
 }
-
-@property (nonatomic, strong)  NSString *path;
 
 /**
  *  请求完成的回调

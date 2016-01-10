@@ -84,7 +84,7 @@ static MKNetworkEngine *_testEngine = nil;
         
         _businessEngine = [[MKNetworkEngine alloc] initWithHostName:domain];
             //@"192.168.0.218:8080"
-        _testEngine = [[MKNetworkEngine alloc] initWithHostName:@"192.168.0.121:8080"];
+        _testEngine = [[MKNetworkEngine alloc] initWithHostName:@"139.162.4.196:5003"];
     }
 }
 
@@ -322,7 +322,9 @@ static MKNetworkEngine *_testEngine = nil;
 	} else if (completedOperation.HTTPStatusCode == 0) {// 没有网络
 		NSString *errorDescription = [completedOperation.error.userInfo objectForKey:@"NSLocalizedDescription"];
 		errorDescription = [errorDescription substringToIndex:errorDescription.length - 1];
+#ifdef DEBUG
 		[self showMessage:@"网络故障"];
+#endif
 	} else {// 其他情况
 #ifdef DEBUG
 		[self showMessage:@"服务器休息中~"];
@@ -419,7 +421,7 @@ static MKNetworkEngine *_testEngine = nil;
 
 
 - (void)cancel {
-    [MKNetworkEngine cancelOperationsContainingURLString:self.path];
+    [MKNetworkEngine cancelOperationsContainingURLString:_path];
 }
 
 

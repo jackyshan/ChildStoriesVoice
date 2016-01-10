@@ -42,6 +42,11 @@
     self.mArr = [NSMutableArray array];
     _pageId = 1;
     [self loadingData];
+    
+    if (isDeviceIPad) {
+        _pageId++;
+        [self loadingData];
+    }
 }
 
 - (void)addSubviews {
@@ -135,7 +140,7 @@
         }
     }];
     
-    homeAlbums.path = @"948/common_tag/6/童话故事";
+    homeAlbums->_path = @"948/common_tag/6/童话故事";
     [homeAlbums startRequestWithParams:@{@"page_id":@(_pageId)}];
 }
 

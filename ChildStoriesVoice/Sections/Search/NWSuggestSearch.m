@@ -14,7 +14,7 @@
 
 - (void)startRequestWithParams:(NSDictionary *)params {
     _params = params;
-    self.path = @"search/948/album_suggest";
+    _path = @"search/948/album_suggest";
     
     [self startGet];
 }

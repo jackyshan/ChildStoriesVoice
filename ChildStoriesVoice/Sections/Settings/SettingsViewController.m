@@ -58,6 +58,14 @@
 - (void)addSubviews {
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.googleAdsView];
+    
+    @weakify(self)
+    [_googleAdsView mas_updateConstraints:^(MASConstraintMaker *make) {
+        @strongify(self)
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(kPlayBottomBarHeight-ADS_HEIGHT);
+        make.height.mas_equalTo(ADS_HEIGHT);
+    }];
 }
 
 - (UITableView *)tableView {
@@ -88,38 +96,19 @@
     [UIView animateWithDuration:ANTI_TIME animations:^{
         CGRect rect = _googleAdsView.frame;
         rect.origin.y -= ADS_HEIGHT;
-        rect.origin.y -= kPlayBottomBarHeight;
         _googleAdsView.frame = rect;
         
     } completion:^(BOOL finished) {
         [_googleAdsView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(-kPlayBottomBarHeight);
         }];
-        
-        [_tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.equalTo(self.view);
-            make.bottom.mas_equalTo(_googleAdsView.mas_top);
-        }];
     }];
 }
 
 - (void)defineLayout {
-//    [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
-//        make.bottom.mas_equalTo(-kPlayBottomBarHeight);
-//    }];
-    
-    [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [_tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);
-        make.bottom.mas_equalTo(-kPlayBottomBarHeight);
-    }];
-    
-    @weakify(self)
-    [_googleAdsView mas_updateConstraints:^(MASConstraintMaker *make) {
-        @strongify(self)
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(ADS_HEIGHT);
-        make.height.mas_equalTo(ADS_HEIGHT);
+        make.bottom.mas_equalTo(_googleAdsView.mas_top);
     }];
 }
 

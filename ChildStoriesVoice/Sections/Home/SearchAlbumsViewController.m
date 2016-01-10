@@ -67,7 +67,7 @@
         }
     }];
     
-    homeAlbums.path = [NSString stringWithFormat:@"948/common_tag/6/%@", [_model.title isEqualToString:@"全部"]?@"all":_model.title];
+    homeAlbums->_path = [NSString stringWithFormat:@"948/common_tag/6/%@", [_model.title isEqualToString:@"全部"]?@"all":_model.title];
     [homeAlbums startRequestWithParams:@{@"page_id":@(_pageId)}];
 }
 

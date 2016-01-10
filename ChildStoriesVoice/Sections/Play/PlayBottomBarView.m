@@ -117,7 +117,12 @@
 - (BlockAlertView *)alertView {
     VoiceDetailModel *model = (VoiceDetailModel *)self.audioPlayer.currentlyPlayingQueueItemId;
     if (model) {
-        _alertView = [[BlockAlertView alloc] initWithTitle:model.title style:AlertStyleSheet];
+        if (isDeviceIPad) {
+            _alertView = [[BlockAlertView alloc] initWithTitle:model.title style:AlertStyleDefault];
+        }
+        else {
+            _alertView = [[BlockAlertView alloc] initWithTitle:model.title style:AlertStyleSheet];
+        }
         @weakify(self)
         
         [_alertView addTitle:@"下载" block:^(id result) {
@@ -152,6 +157,10 @@
             @strongify(self);
             [self playNextMusic];
         }];
+        
+        if (isDeviceIPad) {
+            [_alertView addTitle:@"取消" block:nil];
+        }
         
         [_alertView show];
     }

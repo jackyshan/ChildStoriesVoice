@@ -299,7 +299,7 @@
         }
     }];
     
-    albumDetails.path = [NSString stringWithFormat:@"948/albums/%@", _model.albumId];
+    albumDetails->_path = [NSString stringWithFormat:@"948/albums/%@", _model.albumId];
     [albumDetails startRequestWithParams:@{@"page_id":@(_pageId),
                                            @"isAsc":@(YES)}];
 }

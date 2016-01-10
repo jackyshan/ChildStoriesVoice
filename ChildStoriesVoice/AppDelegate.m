@@ -12,6 +12,9 @@
 #import "ProjectColor.h"
 #import "DataBaseServer.h"
 #import "AnalyticsServer.h"
+#import "NWVersionAds.h"
+#import "NWVersionUpdate.h"
+#import "ProjectHelper.h"
 
 @interface AppDelegate ()
 
@@ -41,10 +44,36 @@
     [self.window addSubview:self.playBottomBar];
     [self.playBottomBar appStartPlayModel];//开机播放
     
+    //update
+    [self updateVersion];
+    
+    //ads
+    [self updateAds];
+    
     //统计服务
     [AnalyticsServer startServer];
     
     return YES;
+}
+
+- (void)updateVersion {
+    NWVersionUpdate *update = [[NWVersionUpdate alloc] init];
+    [update setCompletion:^(VersionUpdateModel *model, BOOL succ) {
+        if (succ) {
+            [ProjectHelper updateVersion:model];
+        }
+    }];
+    [update startRequestWithParams:nil];
+}
+
+- (void)updateAds {
+    NWVersionAds *update = [[NWVersionAds alloc] init];
+    [update setCompletion:^(VersionAdsModel *model, BOOL succ) {
+        if (succ) {
+            [ProjectHelper adsVersion:model];
+        }
+    }];
+    [update startRequestWithParams:nil];
 }
 
 - (UIView *)playBottomBar {
