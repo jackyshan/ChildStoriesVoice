@@ -125,9 +125,9 @@
         }
         @weakify(self)
         
-        [_alertView addTitle:@"下载" block:^(id result) {
-            [DownloadSingleton insertDownloadModel:model];
-        }];
+//        [_alertView addTitle:@"下载" block:^(id result) {
+//            [DownloadSingleton insertDownloadModel:model];
+//        }];
         
         if ([DataBaseServer checkLovedVoice:model]) {
             [_alertView addTitle:@"取消喜欢" block:^(id result) {

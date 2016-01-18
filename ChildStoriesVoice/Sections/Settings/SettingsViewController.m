@@ -189,6 +189,7 @@
     }
     else if (model.type == 8) {
         [ProjectHelper clearDiskCache];
+        [self loadingData];
     }
     else if (model.type == 9) {
         [[ProjectHelper shareInstance] reportBugForEmail];
