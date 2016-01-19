@@ -126,7 +126,7 @@
     VoiceDetailModel *model = _mArr[indexPath.row];
     [DataBaseServer deletePlayVoiceLasted:model];
     
-    [tableView reloadData];
+    [self loadingData];
 }
 
 @end

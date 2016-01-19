@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = COLOR_FFFFFF;
+    self.view.backgroundColor = COLOR_WHITE;
     
     [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"ArrowLeft"]];
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -71,7 +71,7 @@
     
     UILabel *failLabel = [[UILabel alloc] init];
     failLabel.font = [UIFont boldSystemFontOfSize:16.f];
-    failLabel.textColor = COLOR_FFFFFF;
+    failLabel.textColor = COLOR_WHITE;
     failLabel.text = @"网络加载失败，点击重试";
     failLabel.textAlignment = NSTextAlignmentCenter;
     [_failView addSubview:failLabel];
@@ -109,7 +109,7 @@
     
     UILabel *emptyLabel = [[UILabel alloc] init];
     emptyLabel.font = [UIFont boldSystemFontOfSize:16.f];
-    emptyLabel.textColor = COLOR_FFFFFF;
+    emptyLabel.textColor = COLOR_WHITE;
     emptyLabel.text = @"没有数据";
     emptyLabel.textAlignment = NSTextAlignmentCenter;
     [emptyView addSubview:emptyLabel];

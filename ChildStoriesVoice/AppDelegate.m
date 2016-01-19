@@ -29,7 +29,7 @@
     
     //window init
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = COLOR_FFFFFF;
+    self.window.backgroundColor = COLOR_WHITE;
     
     //home vc
     HomeViewController *vc= [[HomeViewController alloc] init];

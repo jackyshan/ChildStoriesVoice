@@ -60,7 +60,7 @@
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.backgroundColor = COLOR_FFFFFF;
+        _collectionView.backgroundColor = COLOR_WHITE;
         
         [_collectionView registerClass:[HomeCollectionCell class] forCellWithReuseIdentifier:HOME_COLLECTION_CELL];
     }

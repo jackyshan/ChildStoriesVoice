@@ -120,7 +120,7 @@
 
 - (UILabel *)albumInfo {
     if (!_albumInfo) {
-        _albumInfo = [InputHelper createLabelWithFrame:CGRectZero title:nil textColor:COLOR_FFFFFF bgColor:COLOR_CLEAR fontSize:14.f textAlignment:NSTextAlignmentLeft addToView:_albumImageView bBold:NO];
+        _albumInfo = [InputHelper createLabelWithFrame:CGRectZero title:nil textColor:COLOR_WHITE bgColor:COLOR_CLEAR fontSize:14.f textAlignment:NSTextAlignmentLeft addToView:_albumImageView bBold:NO];
         _albumInfo.numberOfLines = 0;
     }
     

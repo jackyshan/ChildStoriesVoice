@@ -94,7 +94,7 @@
     if (!_titleLb) {
         _titleLb = [[UILabel alloc] init];
         _titleLb.backgroundColor = COLOR_CLEAR;
-        _titleLb.textColor = COLOR_FFFFFF;
+        _titleLb.textColor = COLOR_WHITE;
         _titleLb.font = [UIFont boldSystemFontOfSize:13.f];
         _titleLb.textAlignment = NSTextAlignmentCenter;
     }
@@ -106,7 +106,7 @@
     if (!_moreActionBtn) {
         _moreActionBtn = [[UIButton alloc] init];
         _moreActionBtn.backgroundColor = COLOR_CLEAR;
-        [_moreActionBtn setTitleColor:COLOR_FFFFFF];
+        [_moreActionBtn setTitleColor:COLOR_WHITE];
         [_moreActionBtn setTitle:@"..."];
         [_moreActionBtn addTarget:self action:@selector(alertView)];
     }

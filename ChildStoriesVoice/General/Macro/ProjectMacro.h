@@ -20,7 +20,6 @@
 //#define PackageDomain TestDomain
 #define PackageDomain ProductionDomain
 
-//debug && release
 #undef bLogSwitch
 #undef kSendLog
 #undef bCatchCrash

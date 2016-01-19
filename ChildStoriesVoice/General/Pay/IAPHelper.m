@@ -184,9 +184,53 @@
         if ([productIdentifier isEqualToString:_productIdentifiers]) {
             _isRestore = YES;
             NSLog(@"iap客户端成功支付,把receipt发送到服务端进行验证");
-            self.iapBlock(receipt, YES);//把receipt发送到服务端进行验证
+//            self.iapBlock(receipt, YES);//把receipt发送到服务端进行验证
+            [self validReceipt:receipt];
         }
     }
+}
+
+- (void)validReceipt:(NSData *)receipt {
+    // Create the JSON object that describes the request
+    NSError *error;
+    NSDictionary *requestContents = @{
+                                      @"receipt-data": [receipt base64EncodedStringWithOptions:0]
+                                      };
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents
+                                                          options:0
+                                                            error:&error];
+    
+    if (!requestData) { /* ... Handle error ... */
+        self.iapBlock(@"没有receipt", NO);
+    }
+    
+    // Create a POST request with the receipt data.
+    NSURL *storeURL = [NSURL URLWithString:@"https://sandbox.itunes.apple.com/verifyReceipt"];
+    NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
+    [storeRequest setHTTPMethod:@"POST"];
+    [storeRequest setHTTPBody:requestData];
+    
+    // Make a connection to the iTunes Store on a background queue.
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:storeRequest queue:queue
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (connectionError) {
+                                   /* ... Handle error ... */
+                                   self.iapBlock(@"handle 错误", NO);
+                               } else {
+                                   NSError *error;
+                                   NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                                   if (!jsonResponse) { /* ... Handle error ...*/
+                                       self.iapBlock(@"handle 错误", NO);
+                                       return;
+                                   }
+                                   
+                                   if ([jsonResponse[@"status"] integerValue] == 0) {
+                                       self.iapBlock(@"验证成功", YES);
+                                   }
+                                   /* ... Send a response back to the device ... */
+                               }
+                           }];
 }
 
 @end

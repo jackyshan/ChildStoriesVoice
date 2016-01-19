@@ -8,13 +8,8 @@
 
 #import "BaseNetwork.h"
 #import "MKNetworkKit.h"
-#import "Macro.h"
 #import "CommonHelper.h"
-//#import "DataBaseServer.h"
 #import "MBProgressHUD.h"
-//#import "UserInfoPro.h"
-#import "NotificationMacro.h"
-#import "ProjectMacro.h"
 #import "InputHelper.h"
 
 #define kHttpRetryCount 1
