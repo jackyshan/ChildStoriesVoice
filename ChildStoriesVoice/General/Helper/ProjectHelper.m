@@ -97,7 +97,7 @@ static BlockAlertView *ads = nil;
     NSArray *setting = @[@{@"img":@"", @"title":@"评价", @"detailTitle":@"", @"type":@"7"},
                          @{@"img":@"", @"title":@"清除缓存", @"detailTitle":cacheSize, @"type":@"8"},
                          @{@"img":@"", @"title":@"反馈", @"detailTitle":@"邮件", @"type":@"9"},
-                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"10"}
+//                         @{@"img":@"", @"title":@"版本", @"detailTitle":XcodeAppVersion, @"type":@"10"}
                          ];
     
     NSArray *arr = @[@{@"name":@"音乐", @"list":music},
