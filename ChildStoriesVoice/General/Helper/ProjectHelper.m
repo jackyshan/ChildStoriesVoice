@@ -101,7 +101,7 @@ static BlockAlertView *ads = nil;
                          ];
     
     NSArray *arr = @[@{@"name":@"音乐", @"list":music},
-                     @{@"name":@"vip", @"list":vip},
+//                     @{@"name":@"vip", @"list":vip},
                      @{@"name":@"设置", @"list":setting}];
     
     return [SettingModel arrayOfModelsFromDictionaries:arr];

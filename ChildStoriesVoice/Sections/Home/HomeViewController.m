@@ -53,20 +53,21 @@
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.hub];
     
-    [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"search"]];
+//    [self createLeftButtonWithTitle:nil withLeftImage:[UIImage imageNamed:@"search"]];
+    [self createLeftButtonWithTitle:nil withLeftImage:nil];
     [self createRightButtonWithTitle:nil withRightImage:[UIImage imageNamed:@"settings"]];
 }
 
 
 - (void)leftBarbuttonClick:(UIBarButtonItem *)item {
-    if (![ProjectHelper getIAPVIP]) {
-        [ProjectHelper buyIapProduct];
-        
-        return;
-    }
-    
-    SearchViewController *vc = [[SearchViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    if (![ProjectHelper getIAPVIP]) {
+//        [ProjectHelper buyIapProduct];
+//        
+//        return;
+//    }
+//    
+//    SearchViewController *vc = [[SearchViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)rightBarbuttonClick:(UIBarButtonItem *)item {
@@ -81,7 +82,7 @@
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.backgroundColor = COLOR_WHITE;
+        _collectionView.backgroundColor = [UIColor whiteColor];
         
         [_collectionView registerClass:[HomeCollectionCell class] forCellWithReuseIdentifier:HOME_COLLECTION_CELL];
         

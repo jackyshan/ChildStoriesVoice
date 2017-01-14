@@ -99,8 +99,9 @@
             
             NSMutableArray *mArr = [NSMutableArray array];
             while ([result next]) {
+                NSDictionary *dic = [result resultDictionary];
                 VoiceDetailModel *model = [[VoiceDetailModel alloc] initWithDictionary:[result resultDictionary] error:nil];
-                [mArr addObject:model];
+                [mArr addObject:dic];
             }
             
             strongSelf->_result= @{@"result":mArr};
